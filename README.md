@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Random Letter Generator
+
+A beautiful, interactive random letter generator with a spinning wheel built with Next.js, TypeScript, and Framer Motion.
+
+## Features
+
+- **Animated Spinning Wheel**: Interactive wheel that spins to select random letters
+- **Customizable Settings**:
+  - Choose between uppercase, lowercase, or both
+  - Option to include or exclude vowels
+- **Sound Effects**: Engaging audio feedback during interactions
+- **Letter History**: Keep track of previously generated letters
+- **Celebration Animations**: Confetti effect when a letter is selected
+- **Responsive Design**: Works on mobile, tablet, and desktop devices
+- **Dark Mode Support**: Automatically adapts to user system preferences
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/random-letter-generator.git
+cd random-letter-generator
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Click the "Spin the Wheel!" button to generate a random letter
+2. Use the Settings panel to customize:
+   - Letter case (uppercase, lowercase, or both)
+   - Include or exclude vowels
+3. View your letter history at the bottom of the page
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org/) - React framework
+- [TypeScript](https://www.typescriptlang.org/) - Static typing
+- [Framer Motion](https://www.framer.com/motion/) - Animations
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [use-sound](https://github.com/joshwcomeau/use-sound) - Sound effects
+- [react-confetti](https://github.com/alampros/react-confetti) - Celebration effects
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Deploy on Vercel
+## Acknowledgments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Inspired by educational tools and random generators
+- Sound effects from [SoundBible](https://soundbible.com/) and [FreeSound](https://freesound.org/)
