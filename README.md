@@ -11,6 +11,7 @@ A beautiful, interactive random letter generator with a spinning wheel built wit
 - **Sound Effects**: Engaging audio feedback during interactions
 - **Letter History**: Keep track of previously generated letters
 - **Celebration Animations**: Confetti effect when a letter is selected
+- **Contact Form**: Easy way for users to send feedback or inquiries
 - **Responsive Design**: Works on mobile, tablet, and desktop devices
 - **Dark Mode Support**: Automatically adapts to user system preferences
 
@@ -70,3 +71,19 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Inspired by educational tools and random generators
 - Sound effects from [SoundBible](https://soundbible.com/) and [FreeSound](https://freesound.org/)
+
+## Contact Form Setup
+
+To enable the contact form functionality:
+
+1. Create a `.env.local` file in the root directory
+2. Add the following environment variables:
+```
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+```
+
+Note: For Gmail, you need to use an App Password:
+1. Enable 2-Step Verification in your Google Account
+2. Create an App Password at https://myaccount.google.com/apppasswords
+3. Use that password in the EMAIL_PASS variable
