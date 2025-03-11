@@ -1,19 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import ClientOnly from './ClientOnly';
 
 interface AdBannerProps {
   adSlot: string;
   adFormat?: 'auto' | 'rectangle' | 'horizontal' | 'vertical';
   style?: React.CSSProperties;
   className?: string;
-}
-
-// Define the type for the global adsbygoogle array
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
 }
 
 export default function AdBanner({ 
@@ -23,74 +17,92 @@ export default function AdBanner({
   className = '' 
 }: AdBannerProps) {
   const adRef = useRef<HTMLDivElement>(null);
+  const [adPushed, setAdPushed] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    // Function to measure container width
+    const updateContainerWidth = () => {
+      if (adRef.current) {
+        setContainerWidth(adRef.current.clientWidth);
+      }
+    };
+
+    // Update width on mount and on resize
+    updateContainerWidth();
+    window.addEventListener('resize', updateContainerWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateContainerWidth);
+    };
+  }, []);
 
   useEffect(() => {
     try {
       // Check if we're in the browser and if adsbygoogle is defined
-      if (typeof window !== 'undefined') {
-        // Wait for the adsense script to load completely
+      if (typeof window !== 'undefined' && !adPushed && containerWidth > 0) {
         const pushAd = () => {
           try {
-            // Only push if adsbygoogle is defined
-            if (window.adsbygoogle && Array.isArray(window.adsbygoogle)) {
+            // Make sure the container has sufficient width before pushing the ad
+            if (containerWidth > 200) {
+              // adsbygoogle is defined in global.d.ts
               (window.adsbygoogle = window.adsbygoogle || []).push({});
+              setAdPushed(true);
             } else {
-              // If not defined yet, try again after a short delay
-              setTimeout(pushAd, 200);
+              console.log(`Ad container too small (${containerWidth}px), not pushing ad`);
             }
           } catch (error) {
-            console.error('AdSense push error:', error);
+            console.error('Error pushing ad:', error);
           }
         };
 
-        // Start the process
-        pushAd();
+        // Push the ad after a short delay to ensure the DOM is ready
+        const timer = setTimeout(() => {
+          pushAd();
+        }, 1000); // Increased delay to ensure DOM is fully rendered
+
+        return () => clearTimeout(timer);
       }
     } catch (error) {
-      console.error('AdSense initialization error:', error);
+      console.error('AdSense error:', error);
     }
-  }, []);
+  }, [adPushed, containerWidth]);
 
-  // Define ad sizes based on format
+  // Function to determine ad size class based on format
   const getAdSize = () => {
     switch (adFormat) {
       case 'rectangle':
-        return { width: 300, height: 250 };
+        return 'min-h-[250px] min-w-[300px]';
       case 'horizontal':
-        return { width: 728, height: 90 };
+        return 'min-h-[90px] min-w-[320px] md:min-w-[728px]';
       case 'vertical':
-        return { width: 160, height: 600 };
-      case 'auto':
+        return 'min-h-[250px] md:min-h-[600px] min-w-[160px]';
       default:
-        return { width: 'auto', height: 'auto' };
+        return 'min-h-[90px] min-w-[320px]';
     }
   };
 
-  const adSize = getAdSize();
-
   return (
-    <div 
-      ref={adRef}
-      className={`ad-container my-6 mx-auto text-center overflow-hidden ${className}`}
-      style={{
-        minHeight: adSize.height,
-        width: adSize.width,
-        ...style
-      }}
-    >
-      <ins
-        className="adsbygoogle"
-        style={{
-          display: 'block',
-          width: adSize.width === 'auto' ? '100%' : adSize.width,
-          height: adSize.height === 'auto' ? 'auto' : adSize.height,
-        }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Replace with your AdSense Publisher ID
-        data-ad-slot={adSlot}
-        data-ad-format={adFormat === 'auto' ? 'auto' : ''}
-        data-full-width-responsive="true"
-      />
-      <div className="text-xs text-gray-500 mt-1">Advertisement</div>
-    </div>
+    <ClientOnly>
+      <div 
+        ref={adRef}
+        className={`ad-container w-full overflow-hidden my-4 bg-gradient-to-r from-[#1a1a2e]/50 to-[#16213e]/50 rounded-lg border border-[#FF3E9D]/10 ${getAdSize()} ${className}`}
+        style={style}
+      >
+        <ins
+          className="adsbygoogle"
+          style={{
+            display: 'block',
+            width: '100%',
+            height: '100%',
+          }}
+          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Replace with your actual AdSense publisher ID
+          data-ad-slot={adSlot}
+          data-ad-format={adFormat}
+          data-full-width-responsive="true"
+        />
+        <div className="text-xs text-center text-gray-500 mt-1">Advertisement</div>
+      </div>
+    </ClientOnly>
   );
 } 

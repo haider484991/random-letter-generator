@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import VercelAnalytics from "../components/VercelAnalytics";
+import { GoogleAdsenseScript } from "../components/GoogleAdsense";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +22,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Random Letter Generator" }],
   creator: "Random Letter Generator",
   publisher: "Random Letter Generator",
+  icons: {
+    icon: '/images/random-letter-generators.png',
+    apple: '/images/random-letter-generators.png',
+  },
   openGraph: {
     title: "Random Letter Generator | Free Online Tool for Games, Teaching & Learning",
     description: "Generate random letters with our beautiful spinning wheel. Perfect for games, teaching, learning activities, decision making, and more.",
@@ -28,11 +33,23 @@ export const metadata: Metadata = {
     siteName: "Random Letter Generator",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://randomlettergenerators.com/images/random-letter-generators.png",
+        width: 1200,
+        height: 630,
+        alt: "Random Letter Generator - Spinning Wheel Tool",
+      }
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Random Letter Generator | Free Online Tool",
     description: "Generate random letters with our beautiful spinning wheel. Perfect for games, teaching, learning activities, decision making, and more.",
+    site: "@randomlettergen",
+    images: [
+      "https://randomlettergenerators.com/images/random-letter-generators.png"
+    ],
   },
   robots: {
     index: true,
@@ -51,13 +68,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense Script - Replace with your actual AdSense code when approved */}
-        <Script
-          id="adsbygoogle-init"
-          strategy="beforeInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-          crossOrigin="anonymous"
-        />
+        {/* Use the GoogleAdsenseScript component instead of inline Script */}
+        <GoogleAdsenseScript />
         
         {/* Google Analytics or Tag Manager can be added here */}
         <Script
@@ -73,6 +85,7 @@ export default function RootLayout({
             gtag('config', 'G-XXXXXXXXXX');
           `}
         </Script>
+        <meta name="google-site-verification" content="n6sQiJLiZr365FeSQGjaDIsTklbJpYGD_uKcFjjdwD0" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

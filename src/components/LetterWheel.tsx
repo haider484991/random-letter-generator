@@ -169,6 +169,8 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
       
       // Animation function
       const animate = (timestamp: number) => {
+        if (!spinningRef.current) return;
+        
         // Calculate time elapsed since last frame
         const elapsed = Math.min(timestamp - lastTimestamp, 100); // Cap at 100ms to prevent jumps
         lastTimestamp = timestamp;
@@ -178,7 +180,13 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
         
         // Update rotation based on current speed with smoother delta
         currentRotation = (currentRotation + speed * delta) % 3600;
-        setRotation(currentRotation % 360);
+        
+        // Update the rotation ref first
+        rotationRef.current = currentRotation % 360;
+        
+        // Only update state occasionally to prevent too many re-renders
+        // This is crucial to prevent the maximum update depth exceeded error
+        setRotation(rotationRef.current);
         
         // Play tick sound at intervals based on speed
         // Only play sound every 100ms to avoid too many sounds
@@ -212,8 +220,11 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
             adjustedRotation = finalRotation + (segmentAngle - segmentOffset);
           }
           
+          // Update the rotation ref
+          rotationRef.current = adjustedRotation % 360;
+          
           // Apply the adjusted rotation
-          setRotation(adjustedRotation % 360);
+          setRotation(rotationRef.current);
           
           // Get the letter at the pointer position using the adjusted rotation
           const result = getCurrentLetterAtPointer(adjustedRotation);
@@ -224,7 +235,9 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
           
           // Show the letter animation after a short delay
           setTimeout(() => {
-            setShowLetterAnimation(true);
+            if (spinningRef.current === false) { // Only show if we're still in the stopped state
+              setShowLetterAnimation(true);
+            }
           }, 300);
           
           playWin();
@@ -245,6 +258,11 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
       };
     }
   }, [spinning, playTick, playWin, onSpinComplete, getCurrentLetterAtPointer, letters.length, segmentAngle]);
+
+  // Update rotation ref when rotation state changes
+  useEffect(() => {
+    rotationRef.current = rotation;
+  }, [rotation]);
 
   // Update chart rotation
   useEffect(() => {
