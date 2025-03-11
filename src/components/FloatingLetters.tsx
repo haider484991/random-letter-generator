@@ -35,7 +35,7 @@ export default function FloatingLetters({ letters = ['A', 'B', 'Z', 'X', 'M', 'K
       animateY: Math.random() * 100 - 50,
       duration: 5 + Math.random() * 5
     }));
-  }, []);
+  }, [letters]);
 
   // Initialize positions only once when the component mounts or letters change
   useEffect(() => {

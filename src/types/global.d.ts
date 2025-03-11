@@ -2,5 +2,5 @@
 
 // Define the type for the global adsbygoogle array
 interface Window {
-  adsbygoogle: any[];
+  adsbygoogle: unknown[];
 } 
