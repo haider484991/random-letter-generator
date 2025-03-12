@@ -4,6 +4,8 @@ import "./globals.css";
 import Script from "next/script";
 import VercelAnalytics from "../components/VercelAnalytics";
 import { GoogleAdsenseScript } from "../components/GoogleAdsense";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import Layout from "@/components/Layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,10 +70,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Use the GoogleAdsenseScript component instead of inline Script */}
         <GoogleAdsenseScript />
         
-        {/* Google Analytics or Tag Manager can be added here */}
         <Script
           id="google-analytics-script"
           strategy="afterInteractive"
@@ -90,7 +90,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          <Layout>
+            {children}
+          </Layout>
+        </ThemeProvider>
         <VercelAnalytics />
       </body>
     </html>

@@ -11,6 +11,7 @@ interface LetterGeneratorProps {
   spinnerType?: SpinnerType;
   spinnerColor?: string;
   spinnerSecondaryColor?: string;
+  theme?: string;
 }
 
 const LetterGenerator: React.FC<LetterGeneratorProps> = ({ 
@@ -18,7 +19,10 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
   includeVowels = true,
   spinnerType = 'circles',
   spinnerColor = '#FF3E9D',
-  spinnerSecondaryColor = '#0EEDFF'
+  spinnerSecondaryColor = '#0EEDFF',
+  // We'll keep the theme prop for type compatibility, but mark it as unused
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  theme
 }) => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [letters, setLetters] = useState<string[]>([]);

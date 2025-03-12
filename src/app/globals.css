@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,6 +40,8 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
+  margin-bottom: 4rem;
 }
 
 .wheel {
@@ -49,6 +51,9 @@ body {
   width: 100%;
   height: 100%;
   transform-origin: center center !important;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .selected-letter {
@@ -58,6 +63,15 @@ body {
   transform: translate(-50%, -50%);
   z-index: 20;
   pointer-events: none;
+  background-color: rgba(26, 26, 46, 0.85);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 62, 157, 0.2);
+  width: auto;
+  max-width: 90%;
+  text-align: center;
 }
 
 .selected-letter-indicator {
@@ -67,7 +81,6 @@ body {
   transform: translateX(-50%);
   z-index: 30;
   pointer-events: none;
-  /* Improved positioning for the indicator */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,10 +88,11 @@ body {
 
 .pointer {
   position: absolute;
-  top: 0;
+  bottom: -12px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  transform: translateX(-50%);
+  z-index: 30;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 /* Center content using the gentle flex approach */

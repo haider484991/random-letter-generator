@@ -6,14 +6,19 @@ import SpinnerCollection, { SpinnerType } from './SpinnerCollection';
 interface SettingsProps {
   alphabetType: 'uppercase' | 'lowercase' | 'both';
   includeVowels: boolean;
-  onAlphabetTypeChange: (type: 'uppercase' | 'lowercase' | 'both') => void;
-  onIncludeVowelsChange: (include: boolean) => void;
+  onAlphabetTypeChange?: (type: 'uppercase' | 'lowercase' | 'both') => void;
+  onIncludeVowelsChange?: (include: boolean) => void;
   spinnerType: SpinnerType;
   spinnerColor: string;
   spinnerSecondaryColor: string;
-  onSpinnerTypeChange: (type: SpinnerType) => void;
-  onSpinnerColorChange: (color: string) => void;
-  onSpinnerSecondaryColorChange: (color: string) => void;
+  onSpinnerTypeChange?: (type: SpinnerType) => void;
+  onSpinnerColorChange?: (color: string) => void;
+  onSpinnerSecondaryColorChange?: (color: string) => void;
+  setAlphabetType?: (type: 'uppercase' | 'lowercase' | 'both') => void;
+  setIncludeVowels?: (include: boolean) => void;
+  setSpinnerType?: (type: SpinnerType) => void;
+  setSpinnerColor?: (color: string) => void;
+  setSpinnerSecondaryColor?: (color: string) => void;
 }
 
 const Settings: React.FC<SettingsProps> = ({
@@ -26,12 +31,45 @@ const Settings: React.FC<SettingsProps> = ({
   spinnerSecondaryColor,
   onSpinnerTypeChange,
   onSpinnerColorChange,
-  onSpinnerSecondaryColorChange
+  onSpinnerSecondaryColorChange,
+  setAlphabetType,
+  setIncludeVowels,
+  setSpinnerType,
+  setSpinnerColor,
+  setSpinnerSecondaryColor
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'letters' | 'spinner'>('letters');
+  const [isSettingsHovered, setIsSettingsHovered] = useState(false);
   const [playClick] = useSound('/sounds/click.mp3', { volume: 0.3 });
+  const [playHover] = useSound('/sounds/hover.mp3', { volume: 0.2 });
+  const isSettingsHoveredRef = useRef(false);
   const isMounted = useRef(false);
+
+  // Sound utility functions
+  const playSwitchSound = () => {
+    if (isMounted.current) {
+      try {
+        playClick();
+      } catch (e) {
+        console.warn('Sound could not be played:', e);
+      }
+    }
+  };
+
+  const hoverSound = () => {
+    if (isMounted.current) {
+      try {
+        playHover();
+      } catch (e) {
+        console.warn('Sound could not be played:', e);
+      }
+    }
+  };
+
+  useEffect(() => {
+    isSettingsHoveredRef.current = isSettingsHovered;
+  }, [isSettingsHovered]);
 
   // Define vibrant colors from the CodePen design
   const colors = {
@@ -70,50 +108,57 @@ const Settings: React.FC<SettingsProps> = ({
   };
 
   const handleAlphabetChange = (type: 'uppercase' | 'lowercase' | 'both') => {
-    if (type === alphabetType) return;
-    if (isMounted.current) {
-      try {
-        playClick();
-      } catch (e) {
-        console.warn('Sound could not be played:', e);
+    if (type !== alphabetType) {
+      playSwitchSound();
+      if (isSettingsHoveredRef.current) {
+        hoverSound();
+      }
+      onAlphabetTypeChange?.(type);
+      if (setAlphabetType) {
+        setAlphabetType(type);
       }
     }
-    onAlphabetTypeChange(type);
   };
 
   const handleVowelsChange = () => {
-    if (isMounted.current) {
-      try {
-        playClick();
-      } catch (e) {
-        console.warn('Sound could not be played:', e);
-      }
+    playSwitchSound();
+    if (isSettingsHoveredRef.current) {
+      hoverSound();
     }
-    onIncludeVowelsChange(!includeVowels);
+    onIncludeVowelsChange?.(!includeVowels);
+    if (setIncludeVowels) {
+      setIncludeVowels(!includeVowels);
+    }
   };
 
   const handleSpinnerTypeChange = (type: SpinnerType) => {
-    if (type === spinnerType) return;
-    if (isMounted.current) {
-      try {
-        playClick();
-      } catch (e) {
-        console.warn('Sound could not be played:', e);
+    if (type !== spinnerType) {
+      playSwitchSound();
+      if (isSettingsHoveredRef.current) {
+        hoverSound();
+      }
+      onSpinnerTypeChange?.(type);
+      if (setSpinnerType) {
+        setSpinnerType(type);
       }
     }
-    onSpinnerTypeChange(type);
   };
 
   const handleColorSchemeChange = (primary: string, secondary: string) => {
-    if (isMounted.current) {
-      try {
-        playClick();
-      } catch (e) {
-        console.warn('Sound could not be played:', e);
+    if (primary !== spinnerColor || secondary !== spinnerSecondaryColor) {
+      playSwitchSound();
+      if (isSettingsHoveredRef.current) {
+        hoverSound();
+      }
+      onSpinnerColorChange?.(primary);
+      onSpinnerSecondaryColorChange?.(secondary);
+      if (setSpinnerColor) {
+        setSpinnerColor(primary);
+      }
+      if (setSpinnerSecondaryColor) {
+        setSpinnerSecondaryColor(secondary);
       }
     }
-    onSpinnerColorChange(primary);
-    onSpinnerSecondaryColorChange(secondary);
   };
 
   const getLetterArray = (): string[] => {
@@ -140,8 +185,11 @@ const Settings: React.FC<SettingsProps> = ({
   };
 
   return (
-    <div className="settings-container">
-      {/* Settings toggle button with enhanced styling */}
+    <div 
+      className="relative"
+      onMouseEnter={() => setIsSettingsHovered(true)}
+      onMouseLeave={() => setIsSettingsHovered(false)}
+    >
       <motion.button
         onClick={toggleSettings}
         className="settings-toggle p-3 rounded-full bg-gradient-to-r from-[#FF3E9D] to-[#0EEDFF] shadow-lg"

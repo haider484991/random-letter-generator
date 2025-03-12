@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <Link href="/" className="text-cyan-400 hover:text-cyan-300 transition-colors">
@@ -38,8 +38,21 @@ export default function About() {
               <li>Choose between uppercase letters, lowercase letters, or both</li>
               <li>Include or exclude vowels</li>
               <li>Select from different spinner types and colors</li>
-              <li>Switch between dark and vibrant themes</li>
+              <li>Switch between vibrant and dark themes</li>
             </ul>
+          </section>
+          
+          <section className="space-y-4">
+            <h2 className="text-2xl font-semibold text-white">Our Story</h2>
+            <p>
+              Random Letter Generator was born out of a simple need: to create an engaging way to teach the alphabet to young children. As educators, we noticed that traditional methods of teaching letters could sometimes be boring or repetitive for children, leading to disinterest and disengagement.
+            </p>
+            <p>
+              We started by creating a basic wheel with letters that we could spin in the classroom. The physical wheel was an instant hit with students, who were excited to see which letter would be chosen. Building on this success, we decided to create a digital version that could be accessed by anyone, anywhere.
+            </p>
+            <p>
+              After several iterations and improvements based on user feedback, Random Letter Generator has evolved into the tool you see today—a versatile, customizable, and visually appealing random letter generator that serves various purposes, from educational activities to games and decision-making.
+            </p>
           </section>
           
           <section className="space-y-4">
@@ -72,11 +85,11 @@ export default function About() {
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold text-white">Our Technology</h2>
             <p>
-              Random Letter Generator is built using modern web technologies to ensure a smooth and responsive experience:
+              Random Letter Generator is built using modern web technologies to ensure a smooth, responsive, and engaging user experience:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Next.js:</strong> A React framework for building fast and scalable web applications</li>
-              <li><strong>Framer Motion:</strong> A production-ready motion library for React that powers our smooth animations</li>
+              <li><strong>Next.js:</strong> A React framework for building server-rendered applications</li>
+              <li><strong>Framer Motion:</strong> A production-ready motion library for React that powers our animations</li>
               <li><strong>Tailwind CSS:</strong> A utility-first CSS framework for rapid UI development</li>
               <li><strong>TypeScript:</strong> A typed superset of JavaScript that enhances code quality and developer experience</li>
             </ul>

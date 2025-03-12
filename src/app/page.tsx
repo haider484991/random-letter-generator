@@ -9,28 +9,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SpinnerCollection, { SpinnerType } from '@/components/SpinnerCollection';
 import ClientOnly from '@/components/ClientOnly';
 import FloatingLetters from '@/components/FloatingLetters';
+import { useTheme } from '@/components/ThemeProvider';
 
 export default function Home() {
+  const { theme } = useTheme();
   const [alphabetType, setAlphabetType] = useState<'uppercase' | 'lowercase' | 'both'>('uppercase');
   const [includeVowels, setIncludeVowels] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState<'dark' | 'vibrant'>('vibrant');
   const [adsReady, setAdsReady] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Spinner settings
   const [spinnerType, setSpinnerType] = useState<SpinnerType>('circles');
   const [spinnerColor, setSpinnerColor] = useState('#FF3E9D');
   const [spinnerSecondaryColor, setSpinnerSecondaryColor] = useState('#0EEDFF');
-
-  // Define vibrant colors from the CodePen design
-  const colors = {
-    pink: '#FF3E9D',
-    cyan: '#0EEDFF',
-    purple: '#EE74FF',
-    yellow: '#FFED37',
-    green: '#00E061'
-  };
 
   // Simulate loading state
   useEffect(() => {
@@ -53,25 +44,8 @@ export default function Home() {
     }
   }, [loading]);
 
-  // Toggle theme
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'vibrant' : 'dark');
-  };
-
-  // Get background based on theme
-  const getBackground = () => {
-    return theme === 'vibrant' 
-      ? 'bg-[#1a1a2e]' 
-      : 'bg-gray-900';
-  };
-
-  // Toggle mobile menu
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(prev => !prev);
-  };
-
   return (
-    <div className={`flex flex-col min-h-screen ${getBackground()} text-white transition-colors duration-500`}>
+    <>
       {/* Loading screen */}
       <AnimatePresence>
         {loading && (
@@ -96,115 +70,6 @@ export default function Home() {
               >
                 Loading Letter Generator...
               </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Navigation */}
-      <nav className="py-4 px-6 flex justify-between items-center relative z-30">
-        <div className="flex items-center space-x-2">
-          <span className="text-xl font-bold bg-gradient-to-r from-[#FF3E9D] to-[#0EEDFF] text-transparent bg-clip-text">RLG</span>
-        </div>
-        
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
-          <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-          <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
-          <Link href="/privacy-policy" className="text-gray-300 hover:text-white transition-colors">Privacy</Link>
-          <Link href="/terms-of-service" className="text-gray-300 hover:text-white transition-colors">Terms</Link>
-          <motion.button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-gradient-to-r from-[#FF3E9D]/20 to-[#0EEDFF]/20 border border-[#EE74FF]/30"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {theme === 'vibrant' ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#0EEDFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FFED37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            )}
-          </motion.button>
-        </div>
-        
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center space-x-3">
-          <motion.button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-gradient-to-r from-[#FF3E9D]/20 to-[#0EEDFF]/20 border border-[#EE74FF]/30"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {theme === 'vibrant' ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#0EEDFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#FFED37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            )}
-          </motion.button>
-          <button 
-            onClick={toggleMobileMenu}
-            className="p-2 rounded-full bg-gradient-to-r from-[#FF3E9D]/20 to-[#0EEDFF]/20 border border-[#EE74FF]/30"
-          >
-            {mobileMenuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </nav>
-      
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div 
-            className="md:hidden fixed inset-0 z-40 bg-black/90 pt-20"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex flex-col items-center space-y-6 p-6">
-              <Link 
-                href="/about" 
-                className="text-xl text-gray-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link 
-                href="/contact" 
-                className="text-xl text-gray-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link 
-                href="/privacy-policy" 
-                className="text-xl text-gray-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Privacy
-              </Link>
-              <Link 
-                href="/terms-of-service" 
-                className="text-xl text-gray-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Terms
-              </Link>
             </div>
           </motion.div>
         )}
@@ -241,171 +106,141 @@ export default function Home() {
             <FloatingLetters />
           </ClientOnly>
           
-          <h1 className="text-4xl sm:text-6xl font-bold">
-            {/* Gradient text with vibrant colors */}
-            <span className="bg-gradient-to-r from-[#FF3E9D] via-[#EE74FF] to-[#0EEDFF] text-transparent bg-clip-text">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mt-8 bg-gradient-to-r from-[#FF3E9D] via-[#EE74FF] to-[#0EEDFF] text-transparent bg-clip-text leading-tight">
               Random Letter Generator
-            </span>
           </h1>
+          <p className="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">
+            Generate random letters with our beautiful spinning wheel. Perfect for games, teaching, learning activities, decision making, and more.
+          </p>
         </motion.div>
-        
-        <motion.p 
-          className="mt-3 text-lg sm:text-xl text-gray-300 max-w-xl mx-auto"
-          initial={{ y: -30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.1, type: "spring", stiffness: 100 }}
-        >
-          Generate random letters with our beautiful spinning wheel. Perfect for games, teaching, and learning activities.
-        </motion.p>
-        <motion.p
-          className="mt-2 text-sm text-gray-400 max-w-md mx-auto"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 100 }}
-        >
-          Customize with uppercase, lowercase, vowels, or consonants. The pointer at the top will determine which letter is selected when the wheel stops.
-        </motion.p>
       </header>
 
-      {/* Top ad banner */}
-      {adsReady && (
-        <div className="hidden md:block">
-          <AdBanner adSlot="1234567890" adFormat="horizontal" />
-        </div>
-      )}
-
-      <main className="flex-grow flex flex-col items-center justify-center px-4 sm:px-6 py-4 sm:py-8 relative z-10">
-        <motion.div 
-          className="w-full max-w-4xl relative"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          {/* Centered layout with settings as a floating button */}
-          <div className="relative flex flex-col items-center">
-            {/* Settings component as a floating button */}
-            <div className="absolute top-0 right-0 z-20">
-              <Settings 
-                alphabetType={alphabetType}
-                includeVowels={includeVowels}
-                onAlphabetTypeChange={setAlphabetType}
-                onIncludeVowelsChange={setIncludeVowels}
-                spinnerType={spinnerType}
-                spinnerColor={spinnerColor}
-                spinnerSecondaryColor={spinnerSecondaryColor}
-                onSpinnerTypeChange={setSpinnerType}
-                onSpinnerColorChange={setSpinnerColor}
-                onSpinnerSecondaryColorChange={setSpinnerSecondaryColor}
-              />
-            </div>
-            
-            {/* Main Letter Generator */}
-            <div className="w-full flex justify-center">
-              <LetterGenerator 
-                alphabetType={alphabetType}
-                includeVowels={includeVowels}
-                spinnerType={spinnerType}
-                spinnerColor={spinnerColor}
-                spinnerSecondaryColor={spinnerSecondaryColor}
-              />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Middle ad banner - mobile only */}
+      <div className="flex-1 py-8 px-4 sm:px-6 max-w-7xl mx-auto relative">
+        {/* Left ad banner */}
         {adsReady && (
-          <div className="md:hidden my-8">
-            <AdBanner adSlot="0987654321" adFormat="rectangle" />
+          <div className="hidden lg:block fixed left-0 top-1/2 transform -translate-y-1/2 z-20">
+            <AdBanner adSlot="1122334455" adFormat="vertical" />
           </div>
         )}
 
-        {/* Comprehensive content for SEO - Improved mobile responsiveness */}
-        <div className="mt-16 max-w-4xl mx-auto text-gray-300 px-4 sm:px-0">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-white">What is a Random Letter Generator?</h2>
-          <p className="mb-4 text-sm sm:text-base">
-            A random letter generator is an interactive digital tool designed to produce random letters from the English alphabet. Our premium Random Letter Generator uses a visually stunning spinning wheel interface to randomly select letters, creating an engaging and immersive experience. This versatile tool serves multiple purposes including educational activities, word games, creative writing exercises, classroom teaching, and decision-making processes.
-          </p>
-          <p className="mb-4 text-sm sm:text-base">
-            Whether you&apos;re a teacher looking for innovative classroom activities, a parent seeking educational games for children, or someone who enjoys word puzzles and games, our random letter generator provides a reliable and entertaining solution for generating truly random alphabetical characters.
-          </p>
+        {/* Right ad banner */}
+        {adsReady && (
+          <div className="hidden lg:block fixed right-0 top-1/2 transform -translate-y-1/2 z-20">
+            <AdBanner adSlot="5566778899" adFormat="vertical" />
+          </div>
+        )}
 
-          {/* Side ad banner - desktop only */}
-          {adsReady && (
-            <div className="hidden lg:block lg:float-right lg:ml-6 lg:mb-6">
-              <AdBanner adSlot="1122334455" adFormat="vertical" />
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Letter Generator Column */}
+          <div className="flex-1">
+            <div className="relative">
+      {adsReady && (
+                <div className="mb-8">
+                  <AdBanner adSlot="3344556677" adFormat="horizontal" />
+        </div>
+      )}
+
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mb-12"
+              >
+              <LetterGenerator 
+                alphabetType={alphabetType}
+                includeVowels={includeVowels}
+                  theme={theme} 
+                spinnerType={spinnerType}
+                spinnerColor={spinnerColor}
+                spinnerSecondaryColor={spinnerSecondaryColor}
+              />
+              </motion.div>
+
+              <motion.div
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-[#0EEDFF] to-[#EE74FF] text-transparent bg-clip-text">About the Random Letter Generator</h2>
+                <div className="text-gray-300 space-y-4">
+                  <p>
+                    Our Random Letter Generator is a versatile tool that produces random letters from the English alphabet. With its colorful, animated spinning wheel interface, it transforms a simple randomization process into an engaging, visually appealing experience.
+                  </p>
+                  <p>
+                    The tool allows for customization through several settings, enabling users to tailor the letter generation to specific needs:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li><span className="text-[#0EEDFF]">Alphabet Type:</span> Choose between uppercase letters, lowercase letters, or both.</li>
+                    <li><span className="text-[#FF3E9D]">Vowel Inclusion:</span> Option to include or exclude vowels (A, E, I, O, U) from the selection.</li>
+                    <li><span className="text-[#EE74FF]">Spinner Style:</span> Select from a variety of spinner designs to personalize the visual experience.</li>
+                    <li><span className="text-[#00E061]">Color Themes:</span> Switch between a vibrant, colorful interface or a more subdued dark theme.</li>
+                  </ul>
+                  <p>
+                    This Random Letter Generator serves a wide range of purposes across educational, recreational, and creative contexts:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li><span className="text-[#0EEDFF]">Educational Use:</span> Teachers can use it for alphabet learning activities, spelling practice, or phonics exercises.</li>
+                    <li><span className="text-[#FF3E9D]">Word Games:</span> Perfect for games like Scrabble, Boggle, or any activity requiring random letter selection.</li>
+                    <li><span className="text-[#EE74FF]">Creative Writing:</span> Writers can use it for creative prompts, word association exercises, or overcoming writer&apos;s block.</li>
+                    <li><span className="text-[#00E061]">Decision Making:</span> Use it to make random selections or assignments when an arbitrary letter is needed.</li>
+                  </ul>
+                </div>
+              </motion.div>
             </div>
-          )}
+          </div>
 
-          <h3 className="text-xl sm:text-2xl font-semibold mt-8 mb-4 text-white">Advanced Features of Our Random Letter Generator</h3>
-          <ul className="list-disc pl-4 sm:pl-6 space-y-2 mb-6 text-sm sm:text-base">
-            <li><strong>Interactive Spinning Wheel Animation:</strong> Our generator features a sophisticated animated wheel that spins to select a random letter, providing visual feedback and enhancing user engagement.</li>
-            <li><strong>Comprehensive Customization Options:</strong> Select between uppercase letters (A-Z), lowercase letters (a-z), or both formats combined. You can also include or exclude vowels (A, E, I, O, U) based on your specific requirements.</li>
-            <li><strong>Multiple Spinner Animations:</strong> Choose from a variety of spinner types and animations to personalize your random letter generation experience.</li>
-            <li><strong>Custom Color Selection:</strong> Customize the spinner&apos;s color scheme to match your preferences, brand colors, or classroom theme.</li>
-            <li><strong>Dual Theme Options:</strong> Switch seamlessly between dark and vibrant themes for optimal visual comfort in different lighting conditions.</li>
-            <li><strong>Fully Responsive Design:</strong> Our generator is optimized for all devices, including smartphones, tablets, laptops, and desktop computers, ensuring a consistent experience across all platforms.</li>
-            <li><strong>No Installation Required:</strong> Access our random letter generator instantly through any modern web browser without downloading or installing additional software.</li>
-          </ul>
+          {/* Settings Column */}
+          <div className="lg:w-80">
+            <Settings 
+              alphabetType={alphabetType}
+              setAlphabetType={setAlphabetType}
+              includeVowels={includeVowels}
+              setIncludeVowels={setIncludeVowels}
+              spinnerType={spinnerType}
+              setSpinnerType={setSpinnerType}
+              spinnerColor={spinnerColor}
+              setSpinnerColor={setSpinnerColor}
+              spinnerSecondaryColor={spinnerSecondaryColor}
+              setSpinnerSecondaryColor={setSpinnerSecondaryColor}
+            />
+          </div>
+            </div>
 
-          <h3 className="text-xl sm:text-2xl font-semibold mt-8 mb-4 text-white">How to Use the Random Letter Generator Effectively</h3>
-          <ol className="list-decimal pl-4 sm:pl-6 space-y-2 mb-6 text-sm sm:text-base">
-            <li>Click the &quot;Spin&quot; button to activate the wheel animation and begin the random letter selection process.</li>
-            <li>Observe as the wheel spins and gradually slows down, building anticipation for the result.</li>
-            <li>When the wheel stops, the letter aligned with the indicator at the top represents your randomly selected letter.</li>
-            <li>Access the settings panel by clicking the gear icon to customize your experience (modify letter case, include/exclude vowels, change spinner appearance).</li>
-            <li>For multiple random letters, simply click the &quot;Spin&quot; button again to generate additional results.</li>
-            <li>Use the generated letters for your specific activity, game, or educational purpose.</li>
-          </ol>
-
-          {/* In-content ad banner */}
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-16"
+        >
+          {/* Middle ad banner */}
           {adsReady && (
             <div className="my-10">
-              <AdBanner adSlot="5566778899" adFormat="rectangle" />
+              <AdBanner adSlot="7788990011" adFormat="horizontal" />
             </div>
           )}
 
-          <h3 className="text-2xl font-semibold mt-8 mb-4 text-white">Educational Applications and Teaching Resources</h3>
-          <p className="mb-4">
-            Our Random Letter Generator serves as a powerful educational tool for teachers, parents, and students across various learning environments:
-          </p>
-          <ul className="list-disc pl-6 space-y-2 mb-6">
-            <li><strong>Early Literacy Development:</strong> Help young children develop letter recognition skills and phonics awareness by generating random letters and guiding them to identify the letter name, sound, and words that begin with that letter.</li>
-            <li><strong>Vocabulary Enhancement:</strong> Challenge students to expand their vocabulary by generating words that start with, contain, or end with the randomly selected letter, promoting language development and word association skills.</li>
-            <li><strong>Spelling Improvement:</strong> Create customized spelling exercises by generating random letters and asking students to spell words containing those letters, adjusting difficulty based on grade level and learning objectives.</li>
-            <li><strong>Creative Writing Prompts:</strong> Use randomly generated letters as writing prompts for storytelling, poetry, or creative writing exercises, encouraging students to develop narratives around words beginning with the selected letter.</li>
-            <li><strong>ESL/EFL Teaching:</strong> Facilitate language acquisition for non-native English speakers through interactive activities focused on pronunciation, vocabulary building, and alphabet familiarity.</li>
-            <li><strong>Special Education Support:</strong> Provide engaging letter recognition activities for students with learning differences, allowing for multisensory learning experiences that accommodate diverse learning styles.</li>
-            <li><strong>Classroom Management:</strong> Use random letters to organize students into groups, assign classroom responsibilities, or determine presentation order in a fair and unbiased manner.</li>
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-gray-800/30 p-6 rounded-lg border border-gray-700">
+              <h3 className="text-xl font-semibold mb-3 text-[#0EEDFF]">How to Use the Random Letter Generator</h3>
+              <ol className="list-decimal pl-5 space-y-3 text-gray-300">
+                <li>Configure your preferences using the settings panel on the right.</li>
+                <li>Click the &quot;Spin&quot; button to start the spinning wheel animation.</li>
+                <li>Wait for the wheel to stop on a randomly selected letter.</li>
+                <li>Use the generated letter for your game, activity, or exercise.</li>
+                <li>Click &quot;Spin&quot; again to generate another random letter.</li>
+              </ol>
+            </div>
+            <div className="bg-gray-800/30 p-6 rounded-lg border border-gray-700">
+              <h3 className="text-xl font-semibold mb-3 text-[#FF3E9D]">Educational Applications</h3>
+              <ul className="list-disc pl-5 space-y-3 text-gray-300">
+                <li><strong>Alphabet Learning:</strong> Help young learners recognize and identify letters.</li>
+                <li><strong>Vocabulary Building:</strong> Challenge students to create words beginning with the generated letter.</li>
+                <li><strong>Spelling Practice:</strong> Use as a spelling bee tool for random letter categories.</li>
+                <li><strong>Phonics Exercises:</strong> Practice sounds associated with specific letters.</li>
+                <li><strong>Language Arts Games:</strong> Integrate into classroom activities and educational games.</li>
           </ul>
-
-          <h3 className="text-2xl font-semibold mt-8 mb-4 text-white">Fun Games and Recreational Activities</h3>
-          <p className="mb-4">
-            Beyond educational applications, our Random Letter Generator enhances various games and recreational activities:
-          </p>
-          <ul className="list-disc pl-6 space-y-2 mb-6">
-            <li><strong>Word Games and Puzzles:</strong> Elevate classic games like Scrabble, Boggle, Words With Friends, or crossword puzzles by using randomly generated letters as starting points or challenges.</li>
-            <li><strong>Name Association Games:</strong> Generate a random letter and challenge players to quickly name people, places, animals, foods, or objects beginning with that letter within a time limit.</li>
-            <li><strong>Categories Challenge:</strong> Play the popular categories game where participants must list items in multiple categories (countries, celebrities, brands, etc.) starting with the randomly selected letter.</li>
-            <li><strong>Alphabet-Based Party Games:</strong> Create engaging party games where players must perform actions, answer trivia questions, or share personal stories related to the randomly generated letter.</li>
-            <li><strong>Decision Making Tool:</strong> Assign options to different letters and use the random letter generator to make unbiased decisions for group activities, restaurant choices, or travel destinations.</li>
-            <li><strong>Icebreaker Activities:</strong> Facilitate social interactions in group settings by having participants share something about themselves that begins with the randomly generated letter.</li>
-            <li><strong>Creative Challenges:</strong> Use random letters to inspire artistic creations, such as drawing objects that start with the selected letter or composing music with notes corresponding to certain letters.</li>
-          </ul>
-
-          <h3 className="text-2xl font-semibold mt-8 mb-4 text-white">Why Our Random Letter Generator Stands Out</h3>
-          <p className="mb-4">
-            In a digital landscape filled with random letter generators, our tool distinguishes itself through several key advantages:
-          </p>
-          <ul className="list-disc pl-6 space-y-2 mb-6">
-            <li><strong>Superior Visual Design:</strong> Our spinning wheel animation transforms the random letter generation process from a basic function into an engaging, visually stimulating experience that captures and maintains user interest.</li>
-            <li><strong>Extensive Customization:</strong> With comprehensive options to adjust letter case, vowel inclusion, spinner types, and color schemes, our generator offers unparalleled personalization to meet diverse user needs.</li>
-            <li><strong>Intuitive User Interface:</strong> The clean, user-friendly design ensures that users of all ages and technical abilities can navigate and utilize the generator without confusion or frustration.</li>
-            <li><strong>True Randomness:</strong> Our generator employs cryptographically secure random number generation algorithms to ensure genuine randomness in letter selection, providing statistically sound results for educational and gaming applications.</li>
-            <li><strong>No Registration Required:</strong> Access all features instantly without creating accounts, providing personal information, or navigating through paywalls.</li>
-            <li><strong>Completely Free Service:</strong> Enjoy unlimited access to our Random Letter Generator with no hidden fees, premium tiers, or subscription requirements.</li>
-            <li><strong>Optimized Performance:</strong> Experience smooth, responsive operation across all devices thanks to our efficient code and optimized loading times.</li>
-            <li><strong>Regular Updates:</strong> Benefit from continuous improvements and new features as we regularly update our generator based on user feedback and technological advancements.</li>
-          </ul>
+            </div>
+          </div>
 
           {/* Bottom ad banner */}
           {adsReady && (
@@ -468,49 +303,8 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </motion.div>
         </div>
-      </main>
-
-      <footer className="py-8 px-4 sm:px-6 border-t border-gray-800 text-center text-gray-500 text-sm relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center space-x-4 mb-4">
-            {/* Decorative elements */}
-            {['pink', 'cyan', 'purple', 'yellow', 'green'].map((color, index) => (
-              <motion.div 
-                key={color}
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: colors[color as keyof typeof colors] }}
-                animate={{ 
-                  y: [0, -5, 0],
-                  opacity: [0.5, 1, 0.5]
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  delay: index * 0.2
-                }}
-              />
-            ))}
-          </div>
-          
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-4 text-xs sm:text-sm">
-            <Link href="/about" className="text-gray-400 hover:text-gray-300 transition-colors">About</Link>
-            <Link href="/contact" className="text-gray-400 hover:text-gray-300 transition-colors">Contact</Link>
-            <Link href="/privacy-policy" className="text-gray-400 hover:text-gray-300 transition-colors">Privacy Policy</Link>
-            <Link href="/terms-of-service" className="text-gray-400 hover:text-gray-300 transition-colors">Terms of Service</Link>
-            <Link href="/pictionary" className="text-gray-400 hover:text-gray-300 transition-colors">Pictionary Generator</Link>
-            <Link href="/blog/pictionary-word-generator" className="text-gray-400 hover:text-gray-300 transition-colors">Pictionary Guide</Link>
-          </div>
-          
-          <p>Created with Next.js and Framer Motion</p>
-          <p className="mt-1">© {new Date().getFullYear()} Random Letter Generator. All rights reserved.</p>
-          
-          {/* Version info */}
-          <div className="mt-4 text-xs text-gray-600">
-            <p>Version 1.3.0 - Added comprehensive content and AdSense support</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </>
   );
 }

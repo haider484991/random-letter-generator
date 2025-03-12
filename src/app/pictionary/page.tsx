@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 
 export default function PictionaryPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4 md:p-8 lg:p-12">
+    <div className="p-4 md:p-8 lg:p-12">
       <div className="w-full">
         <PictionaryGenerator />
       </div>
-    </main>
+    </div>
   );
 } 
