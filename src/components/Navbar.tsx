@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -11,10 +11,39 @@ interface NavbarProps {
 
 export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [blogDropdownOpen, setBlogDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(prev => !prev);
   };
+
+  const toggleBlogDropdown = () => {
+    setBlogDropdownOpen(prev => !prev);
+  };
+
+  useEffect(() => {
+    // Close dropdown when clicking outside
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setBlogDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const blogLinks = [
+    { title: 'All Blog Posts', href: '/blog' },
+    { title: 'Random Letter Generator', href: '/blog/random-letter-generator' },
+    { title: 'Cursed Text Generator', href: '/blog/cursed-text-generator' },
+    { title: 'Pictionary Word Generator', href: '/blog/pictionary-word-generator' },
+    { title: 'Random Pokémon Generator', href: '/blog/random-pokemon-generator' },
+    { title: 'Random Objects Generator', href: '/blog/random-objects-generator' },
+  ];
 
   return (
     <>
@@ -49,9 +78,49 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           <Link href="/contact" className="text-white hover:text-[#0EEDFF] transition-colors">
             Contact
           </Link>
-          <Link href="/blog" className="text-white hover:text-[#0EEDFF] transition-colors">
-            Blog
-          </Link>
+          <div className="relative" ref={dropdownRef}>
+            <button 
+              onClick={toggleBlogDropdown}
+              className="flex items-center text-white hover:text-[#0EEDFF] transition-colors focus:outline-none"
+            >
+              Blog
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className={`h-4 w-4 ml-1 transition-transform duration-200 ${blogDropdownOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {/* Blog Dropdown Menu */}
+            <AnimatePresence>
+              {blogDropdownOpen && (
+                <motion.div 
+                  className="absolute right-0 mt-2 w-60 bg-gray-900 border border-gray-800 rounded-md shadow-lg p-2 z-50"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="py-1">
+                    {blogLinks.map((link, index) => (
+                      <Link
+                        key={index}
+                        href={link.href}
+                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-[#0EEDFF] rounded-md transition-colors"
+                        onClick={() => setBlogDropdownOpen(false)}
+                      >
+                        {link.title}
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <motion.button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-gradient-to-r from-[#FF3E9D]/20 to-[#0EEDFF]/20 border border-[#EE74FF]/30"
@@ -165,17 +234,52 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               >
                 Contact
               </Link>
-              <Link 
-                href="/blog" 
-                className="text-xl text-gray-300 hover:text-white transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Blog
-              </Link>
+              
+              {/* Blog Submenu for Mobile */}
+              <div className="w-full">
+                <div 
+                  className="flex justify-center items-center text-xl text-gray-300 hover:text-white transition-colors cursor-pointer"
+                  onClick={() => setBlogDropdownOpen(prev => !prev)}
+                >
+                  <span>Blog</span>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className={`h-5 w-5 ml-2 transition-transform duration-200 ${blogDropdownOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+                
+                <AnimatePresence>
+                  {blogDropdownOpen && (
+                    <motion.div 
+                      className="mt-2 flex flex-col items-center space-y-3 pt-3 border-t border-gray-800"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {blogLinks.map((link, index) => (
+                        <Link
+                          key={index}
+                          href={link.href}
+                          className="text-lg text-gray-400 hover:text-white transition-colors"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {link.title}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
-} 
+}
