@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, X, ChevronDown, Filter } from 'lucide-react';
+import { Search, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -27,8 +27,6 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   animalCategories, 
   habitats, 
@@ -209,28 +207,26 @@ export const AnimalFilters = ({
               <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup>
-                  <ScrollArea className="h-72">
-                    {animalCategories.map((category: { id: string; name: string }) => (
-                      <CommandItem
-                        key={category.id}
-                        onSelect={() => updateFilterArray('categories', category.id)}
-                      >
-                        <div className="flex items-center gap-2">
-                          <Checkbox
-                            checked={filters.categories.includes(category.id)}
-                            id={`category-${category.id}`}
-                            onCheckedChange={() => updateFilterArray('categories', category.id)}
-                          />
-                          <Label
-                            htmlFor={`category-${category.id}`}
-                            className="cursor-pointer"
-                          >
-                            {category.name}
-                          </Label>
-                        </div>
-                      </CommandItem>
-                    ))}
-                  </ScrollArea>
+                  {animalCategories.map((category: { id: string; name: string }) => (
+                    <CommandItem
+                      key={category.id}
+                      onSelect={() => updateFilterArray('categories', category.id)}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          checked={filters.categories.includes(category.id)}
+                          id={`category-${category.id}`}
+                          onCheckedChange={() => updateFilterArray('categories', category.id)}
+                        />
+                        <Label
+                          htmlFor={`category-${category.id}`}
+                          className="cursor-pointer"
+                        >
+                          {category.name}
+                        </Label>
+                      </div>
+                    </CommandItem>
+                  ))}
                 </CommandGroup>
               </CommandList>
             </Command>
@@ -251,28 +247,26 @@ export const AnimalFilters = ({
               <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup>
-                  <ScrollArea className="h-72">
-                    {habitats.map((habitat: { id: string; name: string }) => (
-                      <CommandItem
-                        key={habitat.id}
-                        onSelect={() => updateFilterArray('habitats', habitat.id)}
-                      >
-                        <div className="flex items-center gap-2">
-                          <Checkbox
-                            checked={filters.habitats.includes(habitat.id)}
-                            id={`habitat-${habitat.id}`}
-                            onCheckedChange={() => updateFilterArray('habitats', habitat.id)}
-                          />
-                          <Label
-                            htmlFor={`habitat-${habitat.id}`}
-                            className="cursor-pointer"
-                          >
-                            {habitat.name}
-                          </Label>
-                        </div>
-                      </CommandItem>
-                    ))}
-                  </ScrollArea>
+                  {habitats.map((habitat: { id: string; name: string }) => (
+                    <CommandItem
+                      key={habitat.id}
+                      onSelect={() => updateFilterArray('habitats', habitat.id)}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          checked={filters.habitats.includes(habitat.id)}
+                          id={`habitat-${habitat.id}`}
+                          onCheckedChange={() => updateFilterArray('habitats', habitat.id)}
+                        />
+                        <Label
+                          htmlFor={`habitat-${habitat.id}`}
+                          className="cursor-pointer"
+                        >
+                          {habitat.name}
+                        </Label>
+                      </div>
+                    </CommandItem>
+                  ))}
                 </CommandGroup>
               </CommandList>
             </Command>

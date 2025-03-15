@@ -1,18 +1,68 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Search, Filter, ChevronRight, Info, Tag, Globe, HelpCircle, X } from 'lucide-react';
+import { Search, ChevronRight, Info, Tag, Globe, HelpCircle, X, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Animal } from './AnimalGenerator';
 import { getConservationStatusColor } from '@/utils/animalUtils';
+import React from 'react';
+
+export interface Animal {
+  id: string;
+  name: string;
+  scientificName: string;
+  category: string;
+  description: string;
+  habitat: string[];
+  diet: string;
+  lifespan: string;
+  size: {
+    weight: {
+      value: number;
+      unit: string;
+    };
+    length: {
+      value: number;
+      unit: string;
+    };
+  };
+  conservationStatus: string;
+  taxonomicClassification: {
+    kingdom: string;
+    phylum: string;
+    class: string;
+    order: string;
+    family: string;
+    genus: string;
+    species: string;
+  };
+  continents: string[];
+  distribution: string[];
+  adaptations: string[];
+  behaviors?: string[];
+  predators: string[];
+  prey?: string[];
+  socialStructure?: string;
+  behavioralTraits: string[];
+  funFacts?: string[];
+  didYouKnow?: string[];
+  soundUrl?: string;
+  imageUrls: {
+    main: string;
+    additional: string[];
+    [key: string]: string | string[];
+  };
+  endangeredStatus?: {
+    threats: string[];
+    conservationEfforts: string[];
+  };
+}
 
 interface AnimalEncyclopediaProps {
   allAnimals: Animal[];
@@ -68,7 +118,7 @@ export const AnimalEncyclopedia = ({
   // Filter animals based on search and filter criteria
   useEffect(() => {
     const filterAnimals = () => {
-      let results = [...allAnimals];
+      let results: Animal[] = [...allAnimals];
       
       // Filter by search query
       if (searchQuery) {
@@ -77,7 +127,7 @@ export const AnimalEncyclopedia = ({
           animal.name.toLowerCase().includes(query) ||
           animal.scientificName.toLowerCase().includes(query) ||
           animal.description.toLowerCase().includes(query) ||
-          animal.funFacts.some(fact => fact.toLowerCase().includes(query))
+          animal.funFacts?.some((fact: string) => fact.toLowerCase().includes(query))
         );
       }
       
@@ -89,7 +139,7 @@ export const AnimalEncyclopedia = ({
       // Filter by continent
       if (selectedContinent !== 'all') {
         results = results.filter(animal => 
-          animal.continents.some(continent => 
+          animal.continents.some((continent: string) => 
             continent.toLowerCase() === selectedContinent
           )
         );
@@ -378,7 +428,7 @@ export const AnimalEncyclopedia = ({
             <HelpCircle className="mx-auto mb-4 text-gray-400" size={48} />
             <h3 className="text-lg font-semibold mb-2">No animals found</h3>
             <p className="text-gray-500 dark:text-gray-400 mb-4">
-              Try adjusting your search or filters to find what you're looking for.
+              Try adjusting your search or filters to find what you&apos;re looking for.
             </p>
             <Button variant="outline" onClick={resetFilters}>
               Reset Filters
@@ -435,7 +485,7 @@ export const AnimalEncyclopedia = ({
                   
                   <CardFooter className="pt-0 pb-4">
                     <div className="flex flex-wrap gap-1 text-xs">
-                      {animal.habitat.slice(0, 2).map(habitat => (
+                      {animal.habitat.slice(0, 2).map((habitat: string) => (
                         <Badge key={habitat} variant="outline" className="px-2 py-0.5">
                           {habitat}
                         </Badge>
@@ -609,7 +659,7 @@ export const AnimalEncyclopedia = ({
                   <h4 className="text-lg font-semibold mb-2">Remarkable Animal Adaptations</h4>
                   <p>
                     The natural world is full of incredible adaptations. Tardigrades can survive in 
-                    space, mantis shrimp can see colors we can't imagine, and certain frogs can 
+                    space, mantis shrimp can see colors we can&apos;t imagine, and certain frogs can 
                     freeze solid during winter and thaw back to life in spring. These remarkable 
                     adaptations have evolved over millions of years to allow species to thrive in 
                     their unique environments.
@@ -642,6 +692,16 @@ export const AnimalEncyclopedia = ({
             </TabsContent>
           </Tabs>
         </div>
+      </div>
+      
+      <div className="encyclopedia-featured mt-8 p-6 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-lg">
+        <h3 className="text-xl font-semibold mb-2">Did You Know?</h3>
+        <p className="mb-4">
+          Scientists estimate that there are about 8.7 million species on Earth, but we&apos;ve only identified about 1.2 million of them.
+        </p>
+        <p>
+          New species are discovered every day, with approximately 15,000-18,000 new species described annually. Our encyclopedia is constantly updated with the latest discoveries!
+        </p>
       </div>
     </div>
   );

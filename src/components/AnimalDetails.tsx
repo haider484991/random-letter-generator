@@ -8,9 +8,68 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Download, Share2, Volume2, BarChart2 } from 'lucide-react';
 import AnimalHabitatMap from './AnimalHabitatMap';
-import AnimalSoundPlayer from './AnimalSoundPlayer';
-import { Animal, UserPreferences } from './AnimalGenerator';
 import { getConservationStatusColor } from '@/utils/animalUtils';
+import React from 'react';
+
+// Define interfaces here instead of importing from AnimalGenerator.tsx
+export interface Animal {
+  id: string;
+  name: string;
+  scientificName: string;
+  category: string;
+  description: string;
+  habitat: string[];
+  diet: string;
+  lifespan: string;
+  size: {
+    weight: {
+      value: number;
+      unit: string;
+    };
+    length: {
+      value: number;
+      unit: string;
+    };
+  };
+  conservationStatus: string;
+  taxonomicClassification: {
+    kingdom: string;
+    phylum: string;
+    class: string;
+    order: string;
+    family: string;
+    genus: string;
+    species: string;
+  };
+  continents: string[];
+  distribution: string[];
+  adaptations: string[];
+  behaviors?: string[];
+  predators: string[];
+  prey?: string[];
+  socialStructure?: string;
+  behavioralTraits: string[];
+  funFacts?: string[];
+  didYouKnow?: string[];
+  soundUrl?: string;
+  imageUrls: {
+    main: string;
+    additional: string[];
+    [key: string]: string | string[];
+  };
+  endangeredStatus?: {
+    threats: string[];
+    conservationEfforts: string[];
+  };
+}
+
+export interface UserPreferences {
+  showScientificNames: boolean;
+  darkMode: boolean;
+  language: string;
+  units: string;
+  [key: string]: boolean | string | number;
+}
 
 interface AnimalDetailsProps {
   animal: Animal;
@@ -63,35 +122,34 @@ export const AnimalDetails = ({
 ANIMAL INFORMATION
 Name: ${animal.name}
 Scientific Name: ${animal.scientificName}
-${animal.taxonomy ? `
+${animal.taxonomicClassification ? `
 TAXONOMY
-Kingdom: ${animal.taxonomy.kingdom}
-Phylum: ${animal.taxonomy.phylum}
-Class: ${animal.taxonomy.class}
-Order: ${animal.taxonomy.order}
-Family: ${animal.taxonomy.family}
-Genus: ${animal.taxonomy.genus}
-Species: ${animal.taxonomy.species}
+Kingdom: ${animal.taxonomicClassification.kingdom}
+Phylum: ${animal.taxonomicClassification.phylum}
+Class: ${animal.taxonomicClassification.class}
+Order: ${animal.taxonomicClassification.order}
+Family: ${animal.taxonomicClassification.family}
+Genus: ${animal.taxonomicClassification.genus}
+Species: ${animal.taxonomicClassification.species}
 ` : ''}
 
 DESCRIPTION
 ${animal.description}
 
 HABITAT
-${animal.habitats ? animal.habitats.join(', ') : 'Unknown'}
+${animal.habitat ? animal.habitat.join(', ') : 'Unknown'}
 
 DISTRIBUTION
-${animal.continents ? animal.continents.join(', ') : 'Unknown'}
+${animal.distribution ? animal.distribution.join(', ') : 'Unknown'}
 
 DIET
 ${animal.diet || 'Unknown'}
 
 LIFESPAN
-${animal.lifespan ? `${animal.lifespan.min}-${animal.lifespan.max} years` : 'Unknown'}
+${animal.lifespan ? `${animal.lifespan}` : 'Unknown'}
 
 SIZE
-${animal.height ? `Height: ${animal.height.min}-${animal.height.max} ${animal.height.unit}` : 'Height: Unknown'}
-${animal.weight ? `Weight: ${animal.weight.min}-${animal.weight.max} ${animal.weight.unit}` : 'Weight: Unknown'}
+${animal.size ? `Height: ${animal.size.length.value}-${animal.size.length.value} ${animal.size.length.unit}, Weight: ${animal.size.weight.value}-${animal.size.weight.value} ${animal.size.weight.unit}` : 'Height: Unknown, Weight: Unknown'}
 
 ${animal.behaviors ? `BEHAVIORS\n${animal.behaviors.join('\n')}\n\n` : ''}
 
@@ -203,7 +261,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
                 
                 <div>
                   <h3 className="font-semibold text-gray-700 dark:text-gray-300">Habitat</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{animal.habitats ? animal.habitats.join(', ') : 'Unknown'}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{animal.habitat ? animal.habitat.join(', ') : 'Unknown'}</p>
                 </div>
                 
                 <div>
@@ -213,20 +271,19 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
                 
                 <div>
                   <h3 className="font-semibold text-gray-700 dark:text-gray-300">Lifespan</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{animal.lifespan ? `${animal.lifespan.min}-${animal.lifespan.max} years` : 'Unknown'}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{animal.lifespan ? `${animal.lifespan}` : 'Unknown'}</p>
                 </div>
                 
                 <div>
                   <h3 className="font-semibold text-gray-700 dark:text-gray-300">Size</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {animal.height ? `Height: ${animal.height.min}-${animal.height.max} ${animal.height.unit}` : 'Height: Unknown'}
-                    {animal.weight ? `, Weight: ${animal.weight.min}-${animal.weight.max} ${animal.weight.unit}` : ', Weight: Unknown'}
+                    {animal.size ? `Height: ${animal.size.length.value}-${animal.size.length.value} ${animal.size.length.unit}, Weight: ${animal.size.weight.value}-${animal.size.weight.value} ${animal.size.weight.unit}` : 'Height: Unknown, Weight: Unknown'}
                   </p>
                 </div>
                 
                 <div>
                   <h3 className="font-semibold text-gray-700 dark:text-gray-300">Distribution</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{animal.continents ? animal.continents.join(', ') : 'Unknown'}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{animal.distribution ? animal.distribution.join(', ') : 'Unknown'}</p>
                 </div>
               </div>
               
@@ -234,7 +291,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
               
               <h3 className="font-semibold mb-2">Fun Facts</h3>
               <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                {animal.funFacts ? animal.funFacts.slice(0, showAllFacts ? animal.funFacts.length : 3).map((fact, index) => (
+                {animal.funFacts ? animal.funFacts.slice(0, showAllFacts ? animal.funFacts.length : 3).map((fact: string, index: number) => (
                   <li key={index}>{fact}</li>
                 )) : <li>No facts available</li>}
               </ul>
@@ -264,7 +321,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           </div>
           
           <div className="flex overflow-x-auto pb-2 gap-2">
-            {allImages.map((img, index) => (
+            {allImages.map((img: string, index: number) => (
               <div 
                 key={index} 
                 className={`relative h-20 w-20 min-w-20 rounded-md overflow-hidden cursor-pointer ${
@@ -295,43 +352,43 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="font-medium">Kingdom:</span>
-                  <span>{animal.taxonomy ? animal.taxonomy.kingdom : 'Unknown'}</span>
+                  <span>{animal.taxonomicClassification ? animal.taxonomicClassification.kingdom : 'Unknown'}</span>
                 </div>
                 <Separator />
                 
                 <div className="flex justify-between">
                   <span className="font-medium">Phylum:</span>
-                  <span>{animal.taxonomy ? animal.taxonomy.phylum : 'Unknown'}</span>
+                  <span>{animal.taxonomicClassification ? animal.taxonomicClassification.phylum : 'Unknown'}</span>
                 </div>
                 <Separator />
                 
                 <div className="flex justify-between">
                   <span className="font-medium">Class:</span>
-                  <span>{animal.taxonomy ? animal.taxonomy.class : 'Unknown'}</span>
+                  <span>{animal.taxonomicClassification ? animal.taxonomicClassification.class : 'Unknown'}</span>
                 </div>
                 <Separator />
                 
                 <div className="flex justify-between">
                   <span className="font-medium">Order:</span>
-                  <span>{animal.taxonomy ? animal.taxonomy.order : 'Unknown'}</span>
+                  <span>{animal.taxonomicClassification ? animal.taxonomicClassification.order : 'Unknown'}</span>
                 </div>
                 <Separator />
                 
                 <div className="flex justify-between">
                   <span className="font-medium">Family:</span>
-                  <span>{animal.taxonomy ? animal.taxonomy.family : 'Unknown'}</span>
+                  <span>{animal.taxonomicClassification ? animal.taxonomicClassification.family : 'Unknown'}</span>
                 </div>
                 <Separator />
                 
                 <div className="flex justify-between">
                   <span className="font-medium">Genus:</span>
-                  <span>{animal.taxonomy ? animal.taxonomy.genus : 'Unknown'}</span>
+                  <span>{animal.taxonomicClassification ? animal.taxonomicClassification.genus : 'Unknown'}</span>
                 </div>
                 <Separator />
                 
                 <div className="flex justify-between">
                   <span className="font-medium">Species:</span>
-                  <span>{animal.taxonomy ? animal.taxonomy.species : 'Unknown'}</span>
+                  <span>{animal.taxonomicClassification ? animal.taxonomicClassification.species : 'Unknown'}</span>
                 </div>
               </div>
             </CardContent>
@@ -340,29 +397,29 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           <div className="mt-6">
             <h3 className="text-xl font-semibold mb-4">Physical Characteristics</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div>
                 <h4 className="font-medium mb-2">Size</h4>
                 <p className="text-sm">
-                  <span className="font-medium">Height:</span> {animal.height ? `${animal.height.min}-${animal.height.max} ${animal.height.unit}` : 'Unknown'}
+                  <span className="font-medium">Height:</span> {animal.size ? `${animal.size.length.value}-${animal.size.length.value} ${animal.size.length.unit}` : 'Unknown'}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-medium">Weight:</span> {animal.weight ? `${animal.weight.min}-${animal.weight.max} ${animal.weight.unit}` : 'Unknown'}
+                  <span className="font-medium">Weight:</span> {animal.size ? `${animal.size.weight.value}-${animal.size.weight.value} ${animal.size.weight.unit}` : 'Unknown'}
                 </p>
               </div>
               
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div>
                 <h4 className="font-medium mb-2">Adaptations</h4>
                 <ul className="list-disc list-inside text-sm space-y-1">
-                  {animal.behaviors ? animal.behaviors.slice(0, 3).map((behavior, index) => (
+                  {animal.behaviors ? animal.behaviors.slice(0, 3).map((behavior: string, index: number) => (
                     <li key={index}>{behavior}</li>
                   )) : <li>No adaptations available</li>}
                 </ul>
               </div>
               
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div>
                 <h4 className="font-medium mb-2">Interesting Features</h4>
                 <ul className="list-disc list-inside text-sm space-y-1">
-                  {animal.funFacts ? animal.funFacts.slice(0, 3).map((feature, index) => (
+                  {animal.funFacts ? animal.funFacts.slice(0, 3).map((feature: string, index: number) => (
                     <li key={index}>{feature}</li>
                   )) : <li>No features available</li>}
                 </ul>
@@ -374,13 +431,13 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
         <TabsContent value="habitat" className="space-y-4">
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-2">Habitat</h3>
-            <p className="mb-4">{animal.habitats ? animal.habitats.join(', ') : 'Unknown'}</p>
+            <p className="mb-4">{animal.habitat ? animal.habitat.join(', ') : 'Unknown'}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <h4 className="font-medium mb-2">Continents</h4>
                 <div className="flex flex-wrap gap-2">
-                  {animal.continents ? animal.continents.map((continent, index) => (
+                  {animal.continents ? animal.continents.map((continent: string, index: number) => (
                     <span 
                       key={index}
                       className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-xs rounded-full"
@@ -394,7 +451,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
               <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <h4 className="font-medium mb-2">Distribution</h4>
                 <ul className="list-disc list-inside text-sm">
-                  {animal.continents ? animal.continents.map((area, index) => (
+                  {animal.distribution ? animal.distribution.map((area: string, index: number) => (
                     <li key={index}>{area}</li>
                   )) : <li>Unknown</li>}
                 </ul>
@@ -411,17 +468,17 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           <div>
             <h3 className="text-xl font-semibold mb-2">Behavioral Traits</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
+              <div>
                 <h4 className="font-medium">Behavior</h4>
                 <ul className="list-disc list-inside text-sm space-y-1">
-                  {animal.behaviors ? animal.behaviors.map((trait, index) => (
+                  {animal.behaviors ? animal.behaviors.map((trait: string, index: number) => (
                     <li key={index}>{trait}</li>
                   )) : <li>No behaviors available</li>}
                 </ul>
               </div>
               
               {animal.socialStructure && (
-                <div className="space-y-2">
+                <div>
                   <h4 className="font-medium">Social Structure</h4>
                   <p className="text-sm">{animal.socialStructure}</p>
                 </div>
@@ -430,20 +487,20 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <div className="space-y-2">
+            <div>
               <h4 className="font-medium">Predators</h4>
               <ul className="list-disc list-inside text-sm">
-                {animal.predators ? animal.predators.map((predator, index) => (
+                {animal.predators ? animal.predators.map((predator: string, index: number) => (
                   <li key={index}>{predator}</li>
                 )) : <li>No predators available</li>}
               </ul>
             </div>
             
             {animal.prey && animal.prey.length > 0 && (
-              <div className="space-y-2">
+              <div>
                 <h4 className="font-medium">Prey</h4>
                 <ul className="list-disc list-inside text-sm">
-                  {animal.prey.map((prey, index) => (
+                  {animal.prey.map((prey: string, index: number) => (
                     <li key={index}>{prey}</li>
                   ))}
                 </ul>
@@ -456,7 +513,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           <div>
             <h3 className="text-xl font-semibold mb-4">Fun Facts</h3>
             <div className="grid grid-cols-1 gap-3">
-              {animal.funFacts ? animal.funFacts.map((fact, index) => (
+              {animal.funFacts ? animal.funFacts.map((fact: string, index: number) => (
                 <Card key={index}>
                   <CardContent className="pt-4">
                     <p>
@@ -475,7 +532,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           <div>
             <h3 className="text-xl font-semibold mb-4">Did You Know?</h3>
             <div className="grid grid-cols-1 gap-3">
-              {animal.didYouKnow ? animal.didYouKnow.map((fact, index) => (
+              {animal.didYouKnow ? animal.didYouKnow.map((fact: string, index: number) => (
                 <Card key={index}>
                   <CardContent className="pt-4">
                     <p>
@@ -494,7 +551,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           <div>
             <h3 className="text-xl font-semibold mb-4">Adaptations</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {animal.adaptations ? animal.adaptations.map((adaptation, index) => (
+              {animal.adaptations ? animal.adaptations.map((adaptation: string, index: number) => (
                 <div key={index} className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                   <p className="text-sm">{adaptation}</p>
                 </div>
@@ -507,7 +564,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           <div>
             <h3 className="text-xl font-semibold mb-4">Interesting Features</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {animal.funFacts ? animal.funFacts.map((feature, index) => (
+              {animal.funFacts ? animal.funFacts.map((feature: string, index: number) => (
                 <div key={index} className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
                   <p className="text-sm">{feature}</p>
                 </div>
@@ -529,7 +586,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
             </div>
             
             <p className="mb-4">
-              This rating is based on the IUCN Red List of Threatened Species, the world's most comprehensive inventory of the global conservation status of plant and animal species.
+              This rating is based on the IUCN Red List of Threatened Species, the world&apos;s most comprehensive inventory of the global conservation status of plant and animal species.
             </p>
           </div>
           
@@ -538,7 +595,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
               <div className="mb-6">
                 <h3 className="text-xl font-semibold mb-2">Threats</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {animal.endangeredStatus.threats ? animal.endangeredStatus.threats.map((threat, index) => (
+                  {animal.endangeredStatus.threats ? animal.endangeredStatus.threats.map((threat: string, index: number) => (
                     <div key={index} className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
                       <p className="text-sm">{threat}</p>
                     </div>
@@ -551,7 +608,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
               <div>
                 <h3 className="text-xl font-semibold mb-2">Conservation Efforts</h3>
                 <div className="grid grid-cols-1 gap-3">
-                  {animal.endangeredStatus.conservationEfforts ? animal.endangeredStatus.conservationEfforts.map((effort, index) => (
+                  {animal.endangeredStatus.conservationEfforts ? animal.endangeredStatus.conservationEfforts.map((effort: string, index: number) => (
                     <div key={index} className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
                       <p className="text-sm">{effort}</p>
                     </div>
@@ -566,7 +623,7 @@ ${animal.funFacts ? animal.funFacts.join('\n') : 'No facts available'}
           <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <h3 className="font-semibold mb-2">How You Can Help</h3>
             <p className="text-sm mb-2">
-              Conservation of wildlife species like the {animal.name} requires collective effort. Here are some ways you can contribute:
+              Conservation of wildlife species like the {animal.name} requires collective effort. Here&apos;s some ways you can contribute:
             </p>
             <ul className="list-disc list-inside text-sm space-y-1">
               <li>Support wildlife conservation organizations that protect {animal.name} habitats</li>

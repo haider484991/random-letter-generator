@@ -2,15 +2,56 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, X, Info, BarChart2 } from 'lucide-react';
+import { X, Info, BarChart2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Animal } from './AnimalGenerator';
 import { getConservationStatusColor } from '@/utils/animalUtils';
+import React from 'react';
+
+// Define the Animal interface here instead of importing it
+export interface Animal {
+  id: string;
+  name: string;
+  scientificName: string;
+  category: string;
+  habitat: string[];
+  diet: string;
+  lifespan: string;
+  size: {
+    weight: {
+      value: number;
+      unit: string;
+    };
+    length: {
+      value: number;
+      unit: string;
+    };
+  };
+  conservationStatus: string;
+  taxonomicClassification: {
+    kingdom: string;
+    phylum: string;
+    class: string;
+    order: string;
+    family: string;
+    genus: string;
+    species: string;
+  };
+  continents: string[];
+  distribution: string[];
+  adaptations: string[];
+  predators: string[];
+  prey?: string[];
+  socialStructure?: string;
+  behavioralTraits: string[];
+  imageUrls: {
+    main: string;
+    [key: string]: string;
+  };
+}
 
 interface AnimalComparisonProps {
   animals: Animal[];
@@ -159,7 +200,7 @@ export const AnimalComparison = ({
         key: 'adaptations',
         render: (animal) => (
           <ul className="list-disc list-inside text-sm">
-            {animal.adaptations.slice(0, 3).map((adaptation, index) => (
+            {animal.adaptations.slice(0, 3).map((adaptation: string, index: number) => (
               <li key={index}>{adaptation}</li>
             ))}
           </ul>
@@ -191,7 +232,7 @@ export const AnimalComparison = ({
         key: 'behavioralTraits',
         render: (animal) => (
           <ul className="list-disc list-inside text-sm">
-            {animal.behavioralTraits.slice(0, 2).map((trait, index) => (
+            {animal.behavioralTraits.slice(0, 2).map((trait: string, index: number) => (
               <li key={index}>{trait}</li>
             ))}
           </ul>
@@ -210,7 +251,7 @@ export const AnimalComparison = ({
         <TableCell className="font-medium">{property.label}</TableCell>
         {animals.map((animal) => (
           <TableCell key={animal.id}>
-            {property.render ? property.render(animal) : (animal as any)[property.key]}
+            {property.render ? property.render(animal) : ((animal as unknown) as Record<string, React.ReactNode>)[property.key]}
           </TableCell>
         ))}
       </TableRow>

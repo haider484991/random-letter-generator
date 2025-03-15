@@ -1,12 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function AnimalArticleContent() {
-  const [_showFullArticle, _setShowFullArticle] = useState(false);
   const [formattedDate, setFormattedDate] = useState('');
 
   useEffect(() => {
@@ -297,6 +294,34 @@ export default function AnimalArticleContent() {
             </svg>
           </Link>
         </div>
+        
+        <p className="text-gray-800">
+          The Animal Generator isn&apos;t just a tool; it&apos;s a gateway to understanding the incredible diversity of life on our planet. By exploring different species and their characteristics, users gain a deeper appreciation for the complexity and beauty of the natural world.
+        </p>
+        
+        <p className="text-gray-800">
+          For educators, the Animal Generator serves as an invaluable teaching resource. It can be used to create engaging lessons about biology, ecology, and conservation. Students can learn about animal adaptations, ecosystem roles, and biodiversity in an interactive and memorable way.
+        </p>
+        
+        <p className="text-gray-800">
+          &quot;The greatness of a nation and its moral progress can be judged by the way its animals are treated.&quot; - Mahatma Gandhi
+        </p>
+        
+        <p className="text-gray-800">
+          Wildlife conservation is more important than ever as habitats continue to be threatened by human activities. The Animal Generator includes information about each species&apos; conservation status, helping to raise awareness about endangered animals and the challenges they face.
+        </p>
+        
+        <p className="text-gray-800">
+          Whether you&apos;re a teacher looking for educational resources, a student working on a project, or simply a wildlife enthusiast, our Animal Generator offers a wealth of information in an accessible format.
+        </p>
+        
+        <p className="text-gray-800">
+          The Animal Generator isn&apos;t just educational—it&apos;s also fun! Challenge yourself with our animal quiz, compare different species side by side, or simply enjoy discovering new and fascinating creatures from around the world.
+        </p>
+        
+        <p className="text-gray-800">
+          Ready to embark on a journey through the animal kingdom? Click the button below to start exploring our Animal Generator and discover the incredible diversity of wildlife on our planet.
+        </p>
         
       </article>
     </main>
