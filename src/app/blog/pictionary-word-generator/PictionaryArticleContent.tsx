@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function PictionaryArticleContent() {
-  const [showFullArticle, setShowFullArticle] = useState(false);
+  const [_showFullArticle, _setShowFullArticle] = useState(false);
   const [formattedDate, setFormattedDate] = useState('');
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function PictionaryArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">What is a Pictionary Word Generator?</h2>
         
         <p className="text-gray-800">
-          A <strong>Pictionary Word Generator</strong> is an essential tool for anyone who loves playing the classic drawing and guessing game. Our free online generator creates random words for your Pictionary games, eliminating the need for physical cards or the challenge of coming up with words on your own. Whether you&apos;re hosting a family game night, a classroom activity, or a party with friends, our <strong>Pictionary Word Generator</strong> makes the game setup effortless and fun.
+          A <strong>Pictionary Word Generator</strong> is an essential tool for anyone who loves playing the classic drawing and guessing game. Our free online generator creates random words for your Pictionary games, eliminating the need for physical cards or the challenge of coming up with words on your own. Whether you're hosting a family game night, a classroom activity, or a party with friends, our <strong>Pictionary Word Generator</strong> makes the game setup effortless and fun.
         </p>
         
         {/* Added information callout box */}
@@ -118,7 +118,7 @@ export default function PictionaryArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">How to Play Pictionary</h2>
         
         <p className="text-gray-800">
-          Pictionary is a classic party game that combines drawing skills with quick thinking. Here&apos;s a simple guide to playing Pictionary using our word generator:
+          Pictionary is a classic party game that combines drawing skills with quick thinking. Here's a simple guide to playing Pictionary using our word generator:
         </p>
         
         <div className="bg-gray-50 p-6 rounded-lg shadow-sm my-6">
@@ -142,7 +142,7 @@ export default function PictionaryArticleContent() {
               <strong className="text-gray-900">Use Hints When Stuck</strong>: Our generator includes a hint system to help when players are struggling. The artist can reveal a letter or get a category hint, with the number of available hints depending on the difficulty level (Easy: 3 hints, Medium: 2 hints, Hard: 1 hint).
             </li>
             <li>
-              <strong className="text-gray-900">Guess</strong>: The artist&apos;s team must guess the word before time runs out.
+              <strong className="text-gray-900">Guess</strong>: The artist's team must guess the word before time runs out.
             </li>
             <li>
               <strong className="text-gray-900">Score Points</strong>: Teams earn a point for each correct guess within the time limit.
@@ -272,10 +272,10 @@ export default function PictionaryArticleContent() {
           </table>
         </div>
         
-        {!showFullArticle && (
+        {!_showFullArticle && (
           <div className="text-center my-8">
             <motion.button
-              onClick={() => setShowFullArticle(true)}
+              onClick={() => _setShowFullArticle(true)}
               className="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -285,7 +285,7 @@ export default function PictionaryArticleContent() {
           </div>
         )}
         
-        {showFullArticle && (
+        {_showFullArticle && (
           <>
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">Benefits of Using a Pictionary Word Generator for Education</h2>
             
@@ -365,7 +365,7 @@ export default function PictionaryArticleContent() {
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">Pictionary Word Generator for Virtual Game Nights</h2>
             
             <p className="text-gray-800">
-              In today&apos;s digital world, virtual game nights have become increasingly popular. Our <strong>Pictionary Word Generator</strong> is perfect for online play through video conferencing platforms. Here&apos;s how to set up a virtual Pictionary game:
+              In today's digital world, virtual game nights have become increasingly popular. Our <strong>Pictionary Word Generator</strong> is perfect for online play through video conferencing platforms. Here's how to set up a virtual Pictionary game:
             </p>
             
             <ol className="list-decimal pl-6 space-y-4 mb-8 text-gray-800">
@@ -401,17 +401,17 @@ export default function PictionaryArticleContent() {
               
               <div>
                 <h3 className="text-xl font-medium text-indigo-700 mb-2">How many words are in your Pictionary database?</h3>
-                <p className="text-gray-800">Our database contains thousands of carefully selected words across multiple categories and difficulty levels, ensuring you&apos;ll never run out of fresh words for your games.</p>
+                <p className="text-gray-800">Our database contains thousands of carefully selected words across multiple categories and difficulty levels, ensuring you'll never run out of fresh words for your games.</p>
               </div>
               
               <div>
                 <h3 className="text-xl font-medium text-indigo-700 mb-2">Can I suggest new words for the generator?</h3>
-                <p className="text-gray-800">We&apos;re always looking to improve our word database! Contact us through our feedback form to suggest new words or categories you&apos;d like to see added.</p>
+                <p className="text-gray-800">We're always looking to improve our word database! Contact us through our feedback form to suggest new words or categories you'd like to see added.</p>
               </div>
               
               <div>
                 <h3 className="text-xl font-medium text-indigo-700 mb-2">Is this the official Pictionary game?</h3>
-                <p className="text-gray-800">No, our Pictionary Word Generator is not affiliated with the official Pictionary board game. It&apos;s a free tool designed to enhance your drawing and guessing games, whether you&apos;re playing the official game or your own version.</p>
+                <p className="text-gray-800">No, our Pictionary Word Generator is not affiliated with the official Pictionary board game. It's a free tool designed to enhance your drawing and guessing games, whether you're playing the official game or your own version.</p>
               </div>
             </div>
             

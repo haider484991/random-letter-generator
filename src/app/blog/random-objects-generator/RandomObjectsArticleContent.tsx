@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function RandomObjectsArticleContent() {
-  const [showFullArticle, setShowFullArticle] = useState(false);
+  const [_showFullArticle, _setShowFullArticle] = useState(false);
   const [formattedDate, setFormattedDate] = useState('');
 
   useEffect(() => {
@@ -54,7 +52,7 @@ export default function RandomObjectsArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">What is a Random Objects Generator?</h2>
         
         <p className="text-gray-800">
-          A <strong>Random Objects Generator</strong> is a powerful tool that selects random items from various categories like animals, foods, vehicles, sports, and professions. Our free online generator creates random object suggestions for games, creative inspiration, teaching activities, or any situation where you need a random item. Whether you're a teacher planning classroom activities, a game enthusiast looking to add variety to your games, or a creative seeking inspiration, our <strong>Random Objects Generator</strong> provides endless possibilities.
+          A <strong>Random Objects Generator</strong> is a powerful tool that selects random items from various categories like animals, foods, vehicles, sports, and professions. Our free online generator creates random object suggestions for games, creative inspiration, teaching activities, or any situation where you need a random item. Whether you&apos;re a teacher planning classroom activities, a game enthusiast looking to add variety to your games, or a creative seeking inspiration, our <strong>Random Objects Generator</strong> provides endless possibilities.
         </p>
         
         {/* Information callout box */}
@@ -95,19 +93,19 @@ export default function RandomObjectsArticleContent() {
             <div className="flex justify-center mt-4 space-x-3">
               <div className="flex items-center px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                 </svg>
                 Multiple Categories
               </div>
               <div className="flex items-center px-3 py-1 bg-cyan-100 text-cyan-800 rounded-full text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                 </svg>
                 Visual Spinner
               </div>
               <div className="flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                 </svg>
                 Save Favorites
               </div>
@@ -198,7 +196,7 @@ export default function RandomObjectsArticleContent() {
             <div className="flex items-center mb-3">
               <div className="rounded-full bg-orange-100 p-2 mr-3">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 00-1.555.832 1 1 0 00.555-1.168l3 2a1 1 0 001.414 0l3-2a1 1 0 00.555 1.168z" clipRule="evenodd" />
                 </svg>
               </div>
               <h3 className="text-lg font-medium text-gray-900">Sports</h3>
@@ -252,9 +250,9 @@ export default function RandomObjectsArticleContent() {
         </div>
         
         <div className="bg-gradient-to-br from-green-100 to-cyan-100 p-6 rounded-lg border border-green-200 my-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">Ready to Start Generating Random Objects?</h3>
+          <h3 className="text-2xl font-bold text-center mb-4 bg-gradient-to-r from-green-500 to-cyan-500 text-white">Ready to Start Generating Random Objects?</h3>
           <p className="text-gray-800 mb-4">
-            Whether you're planning a game, teaching a class, seeking creative inspiration, or just having fun, our Random Objects Generator is the perfect tool for you. Try it now and discover endless possibilities!
+            Whether you&apos;re planning a game, teaching a class, seeking creative inspiration, or just having fun, our Random Objects Generator is the perfect tool for you. Try it now and discover endless possibilities!
           </p>
           <div className="flex justify-center">
             <Link 

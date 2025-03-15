@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
@@ -135,7 +134,7 @@ export default function BlogPage() {
         <div className="mt-16 bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold text-white mb-4">Want to See More Generator Tools?</h2>
           <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
-            We're constantly expanding our collection of free online generators to help with your games, creative projects, and educational activities.
+            We&apos;re constantly expanding our collection of free online generators to help with your games, creative projects, and educational activities.
           </p>
           <Link 
             href="/"

@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function LetterGeneratorArticleContent() {
-  const [showFullArticle, setShowFullArticle] = useState(false);
+  const [_showFullArticle, _setShowFullArticle] = useState(false);
   const [formattedDate, setFormattedDate] = useState('');
 
   useEffect(() => {
@@ -54,7 +52,7 @@ export default function LetterGeneratorArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">What is a Random Letter Generator?</h2>
         
         <p className="text-gray-800">
-          A <strong>Random Letter Generator</strong> is a versatile tool that generates random letters from the alphabet. Our free online generator creates random uppercase and lowercase letters, with options to include or exclude vowels, making it perfect for a wide range of activities. Whether you're a teacher looking for educational resources, a game enthusiast wanting to add excitement to word games, or someone looking for creative inspiration, our <strong>Random Letter Generator</strong> is the perfect solution.
+          A <strong>Random Letter Generator</strong> is a tool that produces random letters of the alphabet for various games, educational activities, and creative purposes. Our free online generator allows you to customize your random letters by selecting uppercase, lowercase, or mixed case, and by including or excluding vowels. Whether you&apos;re playing word games like Scrabble or Boggle, teaching the alphabet to children, or creating random acronyms, our Random Letter Generator provides a quick and easy solution.
         </p>
         
         {/* Information callout box */}
@@ -67,7 +65,9 @@ export default function LetterGeneratorArticleContent() {
             </div>
             <div className="ml-3">
               <h3 className="text-lg font-medium text-blue-800">Did You Know?</h3>
-              <p className="text-blue-900 mt-2">The English alphabet contains 26 letters, with 5 vowels and 21 consonants. The most commonly used letter in English is 'E', while the least common is 'Z'. Our generator can create truly random letters, helping you avoid the natural frequency bias found in written language!</p>
+              <p className="text-blue-900 mt-2">
+                While vowel-heavy words like &apos;queue&apos; and &apos;audio&apos; rely on vowels for pronunciation, consonant-focused words like &apos;rhythm&apos; and &apos;myth&apos; demonstrate how essential consonants are in English. Our generator lets you control the vowel/consonant mix to create the perfect random letter combinations for your specific needs.
+              </p>
             </div>
           </div>
         </div>
@@ -141,6 +141,9 @@ export default function LetterGeneratorArticleContent() {
             <li>
               <strong className="text-gray-900">Party Games</strong>: Create fun party games where participants must perform tasks based on the letters generated.
             </li>
+            <li>
+              <strong className="text-gray-900">Random Password Creation</strong>: Generate letter sequences as a starting point for creating secure, memorable passwords by adding numbers and special characters to the random letters.
+            </li>
           </ol>
         </div>
         
@@ -196,25 +199,16 @@ export default function LetterGeneratorArticleContent() {
           </div>
         </div>
         
-        <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">Why Use Our Random Letter Generator?</h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">Ready to Generate Some Random Letters?</h2>
         
-        <p className="text-gray-800">
-          Our Random Letter Generator stands out from others for several reasons:
+        <p className="text-gray-800 mb-8">
+          Our Random Letter Generator is completely free and doesn&apos;t require any downloads or installations. Simply select your preferences and start generating random letters for your games, educational activities, or creative projects!
         </p>
-        
-        <ul className="list-disc pl-5 space-y-2 text-gray-800 mt-4">
-          <li><strong>User-Friendly Interface</strong>: Clean, modern design that's easy to navigate.</li>
-          <li><strong>Customization Options</strong>: Tailor the generator to your specific needs with various settings.</li>
-          <li><strong>No Sign-Up Required</strong>: Use the tool instantly without creating an account.</li>
-          <li><strong>Mobile-Friendly</strong>: Works perfectly on all devices, from desktops to smartphones.</li>
-          <li><strong>Completely Free</strong>: All features are available at no cost.</li>
-          <li><strong>Ad-Light Experience</strong>: Minimal advertisements for a better user experience.</li>
-        </ul>
-        
+
         <div className="bg-gradient-to-br from-pink-100 to-cyan-100 p-6 rounded-lg border border-pink-200 my-8">
           <h3 className="text-xl font-semibold text-gray-900 mb-3">Ready to Start Generating Random Letters?</h3>
           <p className="text-gray-800 mb-4">
-            Whether you're a teacher, game enthusiast, writer, or just looking for a fun activity, our Random Letter Generator is the perfect tool for you. Try it now and discover the endless possibilities!
+            Whether you&apos;re a teacher, game enthusiast, writer, or just looking for a fun activity, our Random Letter Generator is the perfect tool for you. Try it now and discover the endless possibilities!
           </p>
           <div className="flex justify-center">
             <Link 
