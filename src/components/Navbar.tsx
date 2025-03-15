@@ -43,6 +43,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     { title: 'Pictionary Word Generator', href: '/blog/pictionary-word-generator' },
     { title: 'Random Pokémon Generator', href: '/blog/random-pokemon-generator' },
     { title: 'Random Objects Generator', href: '/blog/random-objects-generator' },
+    { title: 'Animal Generator', href: '/blog/animal-generator' },
   ];
 
   return (
@@ -62,6 +63,9 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           </Link>
           <Link href="/random-objects" className="text-white hover:text-[#0EEDFF] transition-colors">
             Object Generator
+          </Link>
+          <Link href="/animal-generator" className="text-white hover:text-[#0EEDFF] transition-colors">
+            Animal Generator
           </Link>
           <Link href="/pictionary" className="text-white hover:text-[#0EEDFF] transition-colors">
             Pictionary
@@ -198,6 +202,13 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Object Generator
+              </Link>
+              <Link 
+                href="/animal-generator" 
+                className="text-xl text-gray-300 hover:text-white transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Animal Generator
               </Link>
               <Link 
                 href="/pictionary" 
