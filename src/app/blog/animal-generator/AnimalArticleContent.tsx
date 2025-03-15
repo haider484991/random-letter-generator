@@ -51,7 +51,7 @@ export default function AnimalArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">What is an Animal Generator?</h2>
         
         <p className="text-gray-800">
-          An <strong>Animal Generator</strong> is an interactive digital tool that allows users to discover and learn about wildlife from around the world. Our comprehensive generator provides detailed information about various animal species, including their habitats, behaviors, diets, conservation status, and fascinating facts. Whether you're an educator, student, wildlife enthusiast, or simply curious about the animal kingdom, our <strong>Animal Generator</strong> offers an engaging way to explore biodiversity and learn about creatures from every continent.
+          An <strong>Animal Generator</strong> is an interactive digital tool that allows users to discover and learn about wildlife from around the world. Our comprehensive generator provides detailed information about various animal species, including their habitats, behaviors, diets, conservation status, and fascinating facts. Whether you&apos;re an educator, student, wildlife enthusiast, or simply curious about the animal kingdom, our <strong>Animal Generator</strong> offers an engaging way to explore biodiversity and learn about creatures from every continent.
         </p>
         
         {/* Information callout box */}
@@ -64,7 +64,7 @@ export default function AnimalArticleContent() {
             </div>
             <div className="ml-3">
               <h3 className="text-lg font-medium text-green-800">Biodiversity Crisis</h3>
-              <p className="text-green-900 mt-2">Did you know that according to the International Union for Conservation of Nature (IUCN), more than 40,000 species are currently threatened with extinction? That's approximately 28% of all assessed species. Learning about wildlife is the first step toward understanding the importance of conservation efforts worldwide.</p>
+              <p className="text-green-900 mt-2">Did you know that according to the International Union for Conservation of Nature (IUCN), more than 40,000 species are currently threatened with extinction? That&apos;s approximately 28% of all assessed species. Learning about wildlife is the first step toward understanding the importance of conservation efforts worldwide.</p>
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@ export default function AnimalArticleContent() {
               <strong className="text-gray-900">Animal Sound Library</strong>: Listen to authentic animal calls and vocalizations to better understand how different species communicate.
             </li>
             <li>
-              <strong className="text-gray-900">Conservation Status</strong>: Learn about each animal's conservation status according to the IUCN Red List, helping raise awareness about threatened and endangered species.
+              <strong className="text-gray-900">Conservation Status</strong>: Learn about each animal&apos;s conservation status according to the IUCN Red List, helping raise awareness about threatened and endangered species.
             </li>
             <li>
               <strong className="text-gray-900">Advanced Filtering</strong>: Search for animals by category (mammals, birds, reptiles, etc.), habitat, diet, or conservation status.
@@ -222,13 +222,13 @@ export default function AnimalArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">How to Use the Animal Generator</h2>
         
         <p className="text-gray-800">
-          Using our Animal Generator is simple and intuitive. Here's a quick guide to help you get started:
+          Using our Animal Generator is simple and intuitive. Here&apos;s a quick guide to help you get started:
         </p>
         
         <div className="bg-gray-50 p-6 rounded-lg shadow-sm my-6">
           <ol className="list-decimal pl-5 space-y-3 text-gray-800">
             <li>
-              <strong className="text-gray-900">Generate Random Animals</strong>: Click the "Generate" button to discover random animals from our database.
+              <strong className="text-gray-900">Generate Random Animals</strong>: Click the &ldquo;Generate&rdquo; button to discover random animals from our database.
             </li>
             <li>
               <strong className="text-gray-900">Apply Filters</strong>: Use the filter panel to narrow down results by category, habitat, diet, conservation status, or other criteria.
@@ -237,10 +237,10 @@ export default function AnimalArticleContent() {
               <strong className="text-gray-900">View Animal Details</strong>: Click on any animal card to view its detailed profile, including facts, images, sounds, and habitat information.
             </li>
             <li>
-              <strong className="text-gray-900">Listen to Sounds</strong>: If available, play the animal's sounds to hear their calls or vocalizations.
+              <strong className="text-gray-900">Listen to Sounds</strong>: If available, play the animal&apos;s sounds to hear their calls or vocalizations.
             </li>
             <li>
-              <strong className="text-gray-900">Explore the Habitat Map</strong>: View the animal's natural range on the interactive habitat map.
+              <strong className="text-gray-900">Explore the Habitat Map</strong>: View the animal&apos;s natural range on the interactive habitat map.
             </li>
             <li>
               <strong className="text-gray-900">Compare Animals</strong>: Select multiple animals and use the comparison tool to see how they differ in terms of size, lifespan, diet, and other characteristics.
@@ -282,7 +282,7 @@ export default function AnimalArticleContent() {
         <div className="my-12 text-center">
           <h2 className="text-2xl font-bold mb-6 text-gray-900">Ready to Explore the Animal Kingdom?</h2>
           <p className="text-gray-800 mb-6">
-            Our Animal Generator provides an engaging way to discover the incredible diversity of wildlife on our planet. Whether you're a student, educator, or wildlife enthusiast, you'll find valuable information and fascinating facts.
+            Our Animal Generator provides an engaging way to discover the incredible diversity of wildlife on our planet. Whether you&apos;re a student, educator, or wildlife enthusiast, you&apos;ll find valuable information and fascinating facts.
           </p>
           <Link 
             href="/animal-generator" 
@@ -304,7 +304,7 @@ export default function AnimalArticleContent() {
         </p>
         
         <p className="text-gray-800">
-          &quot;The greatness of a nation and its moral progress can be judged by the way its animals are treated.&quot; - Mahatma Gandhi
+          &ldquo;The greatness of a nation and its moral progress can be judged by the way its animals are treated.&rdquo; - Mahatma Gandhi
         </p>
         
         <p className="text-gray-800">
@@ -316,7 +316,7 @@ export default function AnimalArticleContent() {
         </p>
         
         <p className="text-gray-800">
-          The Animal Generator isn&apos;t just educational—it&apos;s also fun! Challenge yourself with our animal quiz, compare different species side by side, or simply enjoy discovering new and fascinating creatures from around the world.
+          The Animal Generator isn&apos;t just educational&mdash;it&apos;s also fun! Challenge yourself with our animal quiz, compare different species side by side, or simply enjoy discovering new and fascinating creatures from around the world.
         </p>
         
         <p className="text-gray-800">

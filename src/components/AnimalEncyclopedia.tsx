@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Search, ChevronRight, Info, Tag, Globe, HelpCircle, X, Filter } from 'lucide-react';
+import { Search, ChevronRight, Tag, Globe, HelpCircle, X, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -11,60 +11,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { getConservationStatusColor } from '@/utils/animalUtils';
+import { Animal } from '@/types/animal';
 import React from 'react';
 
-export interface Animal {
-  id: string;
-  name: string;
-  scientificName: string;
-  category: string;
-  description: string;
-  habitat: string[];
-  diet: string;
-  lifespan: string;
-  size: {
-    weight: {
-      value: number;
-      unit: string;
-    };
-    length: {
-      value: number;
-      unit: string;
-    };
-  };
-  conservationStatus: string;
-  taxonomicClassification: {
-    kingdom: string;
-    phylum: string;
-    class: string;
-    order: string;
-    family: string;
-    genus: string;
-    species: string;
-  };
-  continents: string[];
-  distribution: string[];
-  adaptations: string[];
-  behaviors?: string[];
-  predators: string[];
-  prey?: string[];
-  socialStructure?: string;
-  behavioralTraits: string[];
-  funFacts?: string[];
-  didYouKnow?: string[];
-  soundUrl?: string;
-  imageUrls: {
-    main: string;
-    additional: string[];
-    [key: string]: string | string[];
-  };
-  endangeredStatus?: {
-    threats: string[];
-    conservationEfforts: string[];
-  };
-}
-
-interface AnimalEncyclopediaProps {
+export interface AnimalEncyclopediaProps {
   allAnimals: Animal[];
   onViewDetails: (animal: Animal) => void;
   showScientificNames: boolean;
@@ -408,9 +358,7 @@ export const AnimalEncyclopedia = ({
             </div>
           </motion.div>
         )}
-      </div>
-      
-      <div className="encyclopedia-content">
+        
         <div className="results-stats mb-4 flex justify-between items-center">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Showing {filteredAnimals.length} of {allAnimals.length} animals
@@ -418,7 +366,7 @@ export const AnimalEncyclopedia = ({
           
           {searchQuery && (
             <Badge variant="outline" className="text-xs">
-              Search: "{searchQuery}"
+              Search: &ldquo;{searchQuery}&rdquo;
             </Badge>
           )}
         </div>

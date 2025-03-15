@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSound from 'use-sound';
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Animal } from './AnimalGenerator';
+import { Animal } from '@/types/animal';
 
 interface QuizQuestion {
   id: string;
@@ -107,11 +107,11 @@ export const AnimalQuiz = ({
         question: `Which habitat is the primary environment for the ${animal.name}?`,
         imageUrl: animal.imageUrls.main,
         options: generateOptions(
-          animal.habitats && animal.habitats.length > 0 ? animal.habitats[0] : 'Unknown', 
-          shuffledAnimals.flatMap(a => a.habitats || [])
+          animal.habitat && animal.habitat.length > 0 ? animal.habitat[0] : 'Unknown', 
+          shuffledAnimals.flatMap(a => a.habitat || [])
         ),
-        correctAnswer: animal.habitats && animal.habitats.length > 0 ? animal.habitats[0] : 'Unknown',
-        explanation: `The ${animal.name} primarily lives in ${animal.habitats ? animal.habitats.join(', ') : 'various habitats'}.`,
+        correctAnswer: animal.habitat && animal.habitat.length > 0 ? animal.habitat[0] : 'Unknown',
+        explanation: `The ${animal.name} primarily lives in ${animal.habitat ? animal.habitat.join(', ') : 'various habitats'}.`,
         difficulty: 'medium',
         category: 'habitat',
         points: 2

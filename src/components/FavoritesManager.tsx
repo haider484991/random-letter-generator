@@ -4,7 +4,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Heart, Trash2, ExternalLink } from 'lucide-react';
-import { Animal } from './AnimalGenerator';
+import { Animal } from '@/types/animal';
 import { motion } from 'framer-motion';
 
 interface FavoritesManagerProps {
@@ -30,7 +30,7 @@ export const FavoritesManager: React.FC<FavoritesManagerProps> = ({
       <CardContent>
         {favorites.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
-            You haven't added any favorites yet. Click the heart icon on an animal card to add it to your favorites.
+            You haven&apos;t added any favorites yet. Click the heart icon on an animal card to add it to your favorites.
           </p>
         ) : (
           <ul className="space-y-2">
