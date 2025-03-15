@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 export default function CursedTextArticleContent() {
-  const [_showFullArticle, _setShowFullArticle] = useState(false);
   const [formattedDate, setFormattedDate] = useState('');
 
   useEffect(() => {

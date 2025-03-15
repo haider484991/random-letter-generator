@@ -54,7 +54,7 @@ export default function PictionaryArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">What is a Pictionary Word Generator?</h2>
         
         <p className="text-gray-800">
-          A <strong>Pictionary Word Generator</strong> is an essential tool for anyone who loves playing the classic drawing and guessing game. Our free online generator creates random words for your Pictionary games, eliminating the need for physical cards or the challenge of coming up with words on your own. Whether you're hosting a family game night, a classroom activity, or a party with friends, our <strong>Pictionary Word Generator</strong> makes the game setup effortless and fun.
+          A <strong>Pictionary Word Generator</strong> is an essential tool for anyone who loves playing the classic drawing and guessing game. Our free online generator creates random words for your Pictionary games, eliminating the need for physical cards or the challenge of coming up with words on your own. Whether you&apos;re hosting a family game night, a classroom activity, or a party with friends, our <strong>Pictionary Word Generator</strong> makes the game setup effortless and fun.
         </p>
         
         {/* Added information callout box */}
@@ -67,7 +67,7 @@ export default function PictionaryArticleContent() {
             </div>
             <div className="ml-3">
               <h3 className="text-lg font-medium text-blue-800">The History of Pictionary</h3>
-              <p className="text-blue-900 mt-2">Pictionary was invented in 1985 by Robert Angel while he was a waiter in Seattle. The game was first produced by Angel Games before being acquired by Mattel. Since then, it's become one of the most popular party games worldwide, selling millions of copies in over 60 countries and translated into dozens of languages!</p>
+              <p className="text-blue-900 mt-2">Pictionary was invented in 1985 by Robert Angel while he was a waiter in Seattle. The game was first produced by Angel Games before being acquired by Mattel. Since then, it&apos;s become one of the most popular party games worldwide, selling millions of copies in over 60 countries and translated into dozens of languages!</p>
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function PictionaryArticleContent() {
         <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">How to Play Pictionary</h2>
         
         <p className="text-gray-800">
-          Pictionary is a classic party game that combines drawing skills with quick thinking. Here's a simple guide to playing Pictionary using our word generator:
+          Pictionary is a classic party game that combines drawing skills with quick thinking. Here&apos;s a simple guide to playing Pictionary using our word generator:
         </p>
         
         <div className="bg-gray-50 p-6 rounded-lg shadow-sm my-6">
@@ -142,7 +142,7 @@ export default function PictionaryArticleContent() {
               <strong className="text-gray-900">Use Hints When Stuck</strong>: Our generator includes a hint system to help when players are struggling. The artist can reveal a letter or get a category hint, with the number of available hints depending on the difficulty level (Easy: 3 hints, Medium: 2 hints, Hard: 1 hint).
             </li>
             <li>
-              <strong className="text-gray-900">Guess</strong>: The artist's team must guess the word before time runs out.
+              <strong className="text-gray-900">Guess</strong>: The artist&apos;s team must guess the word before time runs out.
             </li>
             <li>
               <strong className="text-gray-900">Score Points</strong>: Teams earn a point for each correct guess within the time limit.
@@ -184,9 +184,9 @@ export default function PictionaryArticleContent() {
               <ul className="list-disc pl-6 space-y-2 text-gray-800">
                 <li>Call out everything you see, even if it seems obvious</li>
                 <li>Think about categories and associations</li>
-                <li>Pay attention to the artist's gestures and emphasis</li>
+                <li>Pay attention to the artist&apos;s gestures and emphasis</li>
                 <li>Consider synonyms and related concepts</li>
-                <li>Don't fixate on one interpretation if you're stuck</li>
+                <li>Don&apos;t fixate on one interpretation if you&apos;re stuck</li>
               </ul>
             </div>
             <div className="md:w-1/3 relative h-[200px]">
@@ -220,7 +220,7 @@ export default function PictionaryArticleContent() {
             <strong>Use the Hint System:</strong> If players are struggling to guess the word, use our hint system:
             <ul className="list-disc pl-8 mt-2 space-y-1">
               <li><strong>Letter Reveal:</strong> Reveals a random letter in the word</li>
-              <li><strong>Category Hint:</strong> Provides a clue about the word's category</li>
+              <li><strong>Category Hint:</strong> Provides a clue about the word&apos;s category</li>
               <li>The number of available hints depends on difficulty (Easy: 3, Medium: 2, Hard: 1)</li>
               <li>Use hints strategically, as they are limited per word!</li>
             </ul>
@@ -345,9 +345,9 @@ export default function PictionaryArticleContent() {
                   <ul className="list-disc pl-6 space-y-2 text-gray-800">
                     <li>Call out everything you see, even if it seems obvious</li>
                     <li>Think about categories and associations</li>
-                    <li>Pay attention to the artist's gestures and emphasis</li>
+                    <li>Pay attention to the artist&apos;s gestures and emphasis</li>
                     <li>Consider synonyms and related concepts</li>
-                    <li>Don't fixate on one interpretation if you're stuck</li>
+                    <li>Don&apos;t fixate on one interpretation if you&apos;re stuck</li>
                   </ul>
                 </div>
                 <div className="md:w-1/3 relative h-[200px]">
@@ -365,7 +365,7 @@ export default function PictionaryArticleContent() {
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-gray-900">Pictionary Word Generator for Virtual Game Nights</h2>
             
             <p className="text-gray-800">
-              In today's digital world, virtual game nights have become increasingly popular. Our <strong>Pictionary Word Generator</strong> is perfect for online play through video conferencing platforms. Here's how to set up a virtual Pictionary game:
+              In today&apos;s digital world, virtual game nights have become increasingly popular. Our <strong>Pictionary Word Generator</strong> is perfect for online play through video conferencing platforms. Here&apos;s how to set up a virtual Pictionary game:
             </p>
             
             <ol className="list-decimal pl-6 space-y-4 mb-8 text-gray-800">
@@ -401,17 +401,17 @@ export default function PictionaryArticleContent() {
               
               <div>
                 <h3 className="text-xl font-medium text-indigo-700 mb-2">How many words are in your Pictionary database?</h3>
-                <p className="text-gray-800">Our database contains thousands of carefully selected words across multiple categories and difficulty levels, ensuring you'll never run out of fresh words for your games.</p>
+                <p className="text-gray-800">Our database contains thousands of carefully selected words across multiple categories and difficulty levels, ensuring you&apos;ll never run out of fresh words for your games.</p>
               </div>
               
               <div>
                 <h3 className="text-xl font-medium text-indigo-700 mb-2">Can I suggest new words for the generator?</h3>
-                <p className="text-gray-800">We're always looking to improve our word database! Contact us through our feedback form to suggest new words or categories you'd like to see added.</p>
+                <p className="text-gray-800">We&apos;re always looking to improve our word database! Contact us through our feedback form to suggest new words or categories you&apos;d like to see added.</p>
               </div>
               
               <div>
                 <h3 className="text-xl font-medium text-indigo-700 mb-2">Is this the official Pictionary game?</h3>
-                <p className="text-gray-800">No, our Pictionary Word Generator is not affiliated with the official Pictionary board game. It's a free tool designed to enhance your drawing and guessing games, whether you're playing the official game or your own version.</p>
+                <p className="text-gray-800">No, our Pictionary Word Generator is not affiliated with the official Pictionary board game. It&apos;s a free tool designed to enhance your drawing and guessing games, whether you&apos;re playing the official game or your own version.</p>
               </div>
             </div>
             
@@ -478,7 +478,7 @@ export default function PictionaryArticleContent() {
                       <svg className="h-6 w-6 text-blue-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="text-gray-800">Watch the artist's initial strokes carefully</span>
+                      <span className="text-gray-800">Watch the artist&apos;s initial strokes carefully</span>
                     </li>
                     <li className="flex">
                       <svg className="h-6 w-6 text-blue-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -490,13 +490,13 @@ export default function PictionaryArticleContent() {
                       <svg className="h-6 w-6 text-blue-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="text-gray-800">Think of related words when you're close</span>
+                      <span className="text-gray-800">Think of related words when you&apos;re close</span>
                     </li>
                     <li className="flex">
                       <svg className="h-6 w-6 text-blue-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="text-gray-800">Pay attention to the artist's reactions to your guesses</span>
+                      <span className="text-gray-800">Pay attention to the artist&apos;s reactions to your guesses</span>
                     </li>
                   </ul>
                 </div>
@@ -518,7 +518,7 @@ export default function PictionaryArticleContent() {
                       <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="text-gray-800">Match difficulty to your group's experience level</span>
+                      <span className="text-gray-800">Match difficulty to your group&apos;s experience level</span>
                     </li>
                     <li className="flex">
                       <svg className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -594,7 +594,7 @@ export default function PictionaryArticleContent() {
                   <h3 className="text-xl font-semibold text-yellow-800">Tech Challenge</h3>
                 </div>
                 <p className="text-gray-800 mb-3">
-                  Test your friends' tech knowledge with drawings of gadgets, apps, software, and tech innovations. Use our generator with "hard" difficulty words.
+                  Test your friends&apos; tech knowledge with drawings of gadgets, apps, software, and tech innovations. Use our generator with &quot;hard&quot; difficulty words.
                 </p>
                 <p className="text-gray-800">
                   <strong>Pro Tip:</strong> Allow players to draw on tablets for this theme - it adds an extra layer of tech immersion!
@@ -645,7 +645,7 @@ export default function PictionaryArticleContent() {
                   
                   <div className="border-b border-gray-200 pb-4">
                     <h3 className="text-lg font-medium text-gray-900 mb-2">Do I need to create an account or pay to use the generator?</h3>
-                    <p className="text-gray-800">No! Our Pictionary Word Generator is completely free to use and doesn't require any registration, account creation, or payment information. Just visit the page and start generating words instantly.</p>
+                    <p className="text-gray-800">No! Our Pictionary Word Generator is completely free to use and doesn&apos;t require any registration, account creation, or payment information. Just visit the page and start generating words instantly.</p>
                   </div>
                   
                   <div className="border-b border-gray-200 pb-4">
@@ -689,7 +689,7 @@ export default function PictionaryArticleContent() {
                   <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-lg border border-purple-200 relative">
                     <div className="absolute -top-3 -left-3 text-purple-500 text-5xl opacity-30">"</div>
                     <p className="text-gray-800 italic relative z-10">
-                      As a teacher, I'm always looking for engaging activities for my classroom. This Pictionary generator has been fantastic for my ESL students - it helps them learn vocabulary while having fun!
+                      As a teacher, I&apos;m always looking for engaging activities for my classroom. This Pictionary generator has been fantastic for my ESL students - it helps them learn vocabulary while having fun!
                     </p>
                     <div className="mt-4 flex items-center">
                       <div className="rounded-full bg-purple-200 w-10 h-10 flex items-center justify-center text-purple-700 font-bold">
@@ -721,7 +721,7 @@ export default function PictionaryArticleContent() {
                   <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 p-5 rounded-lg border border-cyan-200 relative">
                     <div className="absolute -top-3 -left-3 text-cyan-500 text-5xl opacity-30">"</div>
                     <p className="text-gray-800 italic relative z-10">
-                      I love how the word history feature prevents repeats. We've been using this for months at our game cafe, and it keeps our Pictionary tournaments fresh and challenging!
+                      I love how the word history feature prevents repeats. We&apos;ve been using this for months at our game cafe, and it keeps our Pictionary tournaments fresh and challenging!
                     </p>
                     <div className="mt-4 flex items-center">
                       <div className="rounded-full bg-cyan-200 w-10 h-10 flex items-center justify-center text-cyan-700 font-bold">

@@ -91,7 +91,6 @@ export default function PictionaryGenerator() {
   // Timer display state
   const [timerDisplay, setTimerDisplay] = useState<'digital' | 'progress'>('digital');
   const [showTimerSettings, setShowTimerSettings] = useState<boolean>(false);
-  const [timerColor, setTimerColor] = useState<string>(COLORS.cyan);
   
   // Hint system state
   const [hintsUsed, setHintsUsed] = useState<number>(0);
@@ -478,15 +477,6 @@ export default function PictionaryGenerator() {
     const warningThreshold = Math.max(Math.floor(timer * 0.3), 10); // 30% of time or at least 10 seconds
     const criticalThreshold = Math.max(Math.floor(timer * 0.15), 5); // 15% of time or at least 5 seconds
     
-    // Update timer color based on time left
-    if (timeLeft <= criticalThreshold) {
-      setTimerColor(COLORS.red);
-    } else if (timeLeft <= warningThreshold) {
-      setTimerColor(COLORS.yellow);
-    } else {
-      setTimerColor(COLORS.cyan);
-    }
-    
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -517,7 +507,7 @@ export default function PictionaryGenerator() {
     }, 1000);
     
     return () => clearInterval(interval);
-  }, [isTimerRunning, timer, timeLeft, playTick, playTimerEnd]);
+  }, [isTimerRunning, timer, playTick, playTimerEnd]);
   
   // Format time as MM:SS
   const formatTime = (seconds: number): string => {
@@ -646,7 +636,7 @@ export default function PictionaryGenerator() {
                   </h3>
                   <ul className={`list-disc pl-5 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                     <li>Letter Reveal - Shows a random letter in the word</li>
-                    <li>Category Hint - Gives a clue about the word's category</li>
+                    <li>Category Hint - Gives a clue about the word&apos;s category</li>
                   </ul>
                 </div>
               </div>
