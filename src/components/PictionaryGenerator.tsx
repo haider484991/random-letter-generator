@@ -171,7 +171,7 @@ export default function PictionaryGenerator() {
       description: 'Each new word relates to the previous one.',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd" />
+          <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" clipRule="evenodd" />
         </svg>
       ),
     },
@@ -494,7 +494,7 @@ export default function PictionaryGenerator() {
         }
         
         // Play tick sound when timer is low
-        if (prev <= 10 && prev > 1) {
+        if (prev <= criticalThreshold && prev > 1) {
           try {
             playTick();
           } catch (error) {
@@ -568,7 +568,9 @@ export default function PictionaryGenerator() {
             title="Custom Words"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
             </svg>
           </motion.button>
           
@@ -628,7 +630,7 @@ export default function PictionaryGenerator() {
             <div className="space-y-4">
               <div>
                 <p className={`mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                  Hints can help players when they're struggling to guess a word. You can use up to <span className="font-semibold">{maxHints}</span> hints per word.
+                  Hints can help players when they&rsquo;re struggling to guess a word. You can use up to <span className="font-semibold">{maxHints}</span> hints per word.
                 </p>
                 <div className={`p-3 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-white border border-gray-200'}`}>
                   <h3 className={`font-medium mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
@@ -636,7 +638,7 @@ export default function PictionaryGenerator() {
                   </h3>
                   <ul className={`list-disc pl-5 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                     <li>Letter Reveal - Shows a random letter in the word</li>
-                    <li>Category Hint - Gives a clue about the word&apos;s category</li>
+                    <li>Category Hint - Gives a clue about the word&rsquo;s category</li>
                   </ul>
                 </div>
               </div>

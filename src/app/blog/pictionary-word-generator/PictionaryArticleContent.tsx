@@ -560,7 +560,7 @@ export default function PictionaryArticleContent() {
                   <h3 className="text-xl font-semibold text-pink-800">Movie Night Pictionary</h3>
                 </div>
                 <p className="text-gray-800 mb-3">
-                  Choose movie titles, famous scenes, or characters for players to draw. Set your word generator to the "medium" difficulty and select categories related to entertainment.
+                  Choose movie titles, famous scenes, or characters for players to draw. Set your word generator to the &ldquo;medium&rdquo; difficulty and select categories related to entertainment.
                 </p>
                 <p className="text-gray-800">
                   <strong>Pro Tip:</strong> Award bonus points for guessing both the movie title and the character or scene being depicted.
@@ -577,7 +577,7 @@ export default function PictionaryArticleContent() {
                   <h3 className="text-xl font-semibold text-green-800">Around the World</h3>
                 </div>
                 <p className="text-gray-800 mb-3">
-                  Focus on landmarks, countries, cultures, and cuisines from around the world. Use the "places" category in our generator and mix in some "hard" difficulty words for adults.
+                  Focus on landmarks, countries, cultures, and cuisines from around the world. Use the &ldquo;places&rdquo; category in our generator and mix in some &ldquo;hard&rdquo; difficulty words for adults.
                 </p>
                 <p className="text-gray-800">
                   <strong>Pro Tip:</strong> Have players dress up according to the region or country theme for extra fun.
@@ -594,7 +594,7 @@ export default function PictionaryArticleContent() {
                   <h3 className="text-xl font-semibold text-yellow-800">Tech Challenge</h3>
                 </div>
                 <p className="text-gray-800 mb-3">
-                  Test your friends&apos; tech knowledge with drawings of gadgets, apps, software, and tech innovations. Use our generator with &quot;hard&quot; difficulty words.
+                  Test your friends&rsquo; tech knowledge with drawings of gadgets, apps, software, and tech innovations. Use our generator with &ldquo;hard&rdquo; difficulty words.
                 </p>
                 <p className="text-gray-800">
                   <strong>Pro Tip:</strong> Allow players to draw on tablets for this theme - it adds an extra layer of tech immersion!
@@ -611,7 +611,7 @@ export default function PictionaryArticleContent() {
                   <h3 className="text-xl font-semibold text-blue-800">Science Pictionary</h3>
                 </div>
                 <p className="text-gray-800 mb-3">
-                  Perfect for educational settings, this theme focuses on scientific concepts, discoveries, and natural phenomena. Mix "medium" and "hard" difficulty words.
+                  Perfect for educational settings, this theme focuses on scientific concepts, discoveries, and natural phenomena. Mix &ldquo;medium&rdquo; and &ldquo;hard&rdquo; difficulty words.
                 </p>
                 <p className="text-gray-800">
                   <strong>Pro Tip:</strong> Have someone briefly explain the science behind the word that was drawn for an educational twist.
@@ -640,12 +640,12 @@ export default function PictionaryArticleContent() {
                   
                   <div className="border-b border-gray-200 pb-4">
                     <h3 className="text-lg font-medium text-gray-900 mb-2">What age groups is this suitable for?</h3>
-                    <p className="text-gray-800">Our Pictionary Word Generator is designed for all ages. The "easy" difficulty level is perfect for children (ages 7+), while "medium" works well for mixed groups, and "hard" provides a challenge for teens and adults.</p>
+                    <p className="text-gray-800">Our Pictionary Word Generator is designed for all ages. The &ldquo;easy&rdquo; difficulty level is perfect for children (ages 7+), while &ldquo;medium&rdquo; works well for mixed groups, and &ldquo;hard&rdquo; provides a challenge for teens and adults.</p>
                   </div>
                   
                   <div className="border-b border-gray-200 pb-4">
                     <h3 className="text-lg font-medium text-gray-900 mb-2">Do I need to create an account or pay to use the generator?</h3>
-                    <p className="text-gray-800">No! Our Pictionary Word Generator is completely free to use and doesn&apos;t require any registration, account creation, or payment information. Just visit the page and start generating words instantly.</p>
+                    <p className="text-gray-800">No! Our Pictionary Word Generator is completely free to use and doesn&rsquo;t require any registration, account creation, or payment information. Just visit the page and start generating words instantly.</p>
                   </div>
                   
                   <div className="border-b border-gray-200 pb-4">
@@ -671,7 +671,7 @@ export default function PictionaryArticleContent() {
               <div className="bg-white p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-5 rounded-lg border border-indigo-200 relative">
-                    <div className="absolute -top-3 -left-3 text-indigo-500 text-5xl opacity-30">"</div>
+                    <div className="absolute -top-3 -left-3 text-indigo-500 text-5xl opacity-30">&ldquo;</div>
                     <p className="text-gray-800 italic relative z-10">
                       We use this generator for our family game nights every weekend. The different difficulty levels are perfect since we have players ranging from 8 to 70 years old! Everyone can participate and have fun.
                     </p>
@@ -687,9 +687,9 @@ export default function PictionaryArticleContent() {
                   </div>
                   
                   <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-lg border border-purple-200 relative">
-                    <div className="absolute -top-3 -left-3 text-purple-500 text-5xl opacity-30">"</div>
+                    <div className="absolute -top-3 -left-3 text-purple-500 text-5xl opacity-30">&ldquo;</div>
                     <p className="text-gray-800 italic relative z-10">
-                      As a teacher, I&apos;m always looking for engaging activities for my classroom. This Pictionary generator has been fantastic for my ESL students - it helps them learn vocabulary while having fun!
+                      As a teacher, I&rsquo;m always looking for engaging activities for my classroom. This Pictionary generator has been fantastic for my ESL students - it helps them learn vocabulary while having fun!
                     </p>
                     <div className="mt-4 flex items-center">
                       <div className="rounded-full bg-purple-200 w-10 h-10 flex items-center justify-center text-purple-700 font-bold">
@@ -703,7 +703,7 @@ export default function PictionaryArticleContent() {
                   </div>
                   
                   <div className="bg-gradient-to-br from-pink-50 to-pink-100 p-5 rounded-lg border border-pink-200 relative">
-                    <div className="absolute -top-3 -left-3 text-pink-500 text-5xl opacity-30">"</div>
+                    <div className="absolute -top-3 -left-3 text-pink-500 text-5xl opacity-30">&ldquo;</div>
                     <p className="text-gray-800 italic relative z-10">
                       I host virtual team-building sessions for remote employees, and your word generator has been a lifesaver. The timer feature and difficulty settings make it easy to adapt to different groups.
                     </p>
@@ -719,9 +719,9 @@ export default function PictionaryArticleContent() {
                   </div>
                   
                   <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 p-5 rounded-lg border border-cyan-200 relative">
-                    <div className="absolute -top-3 -left-3 text-cyan-500 text-5xl opacity-30">"</div>
+                    <div className="absolute -top-3 -left-3 text-cyan-500 text-5xl opacity-30">&ldquo;</div>
                     <p className="text-gray-800 italic relative z-10">
-                      I love how the word history feature prevents repeats. We&apos;ve been using this for months at our game cafe, and it keeps our Pictionary tournaments fresh and challenging!
+                      I love how the word history feature prevents repeats. We&rsquo;ve been using this for months at our game cafe, and it keeps our Pictionary tournaments fresh and challenging!
                     </p>
                     <div className="mt-4 flex items-center">
                       <div className="rounded-full bg-cyan-200 w-10 h-10 flex items-center justify-center text-cyan-700 font-bold">
