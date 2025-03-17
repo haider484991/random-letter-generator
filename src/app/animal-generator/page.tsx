@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import AnimalGenerator from '@/components/AnimalGenerator';
 import { motion, AnimatePresence } from 'framer-motion';
 import SpinnerCollection, { SpinnerType } from '@/components/SpinnerCollection';
 import ClientOnly from '@/components/ClientOnly';
@@ -122,8 +121,10 @@ export default function AnimalGeneratorPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
+            className="bg-gray-800/30 p-8 rounded-lg border border-gray-700 text-center"
           >
-            <AnimalGenerator />
+            <h2 className="text-2xl font-bold mb-4 text-[#0EEDFF]">Coming Soon!</h2>
+            <p className="text-gray-300">The Animal Generator feature is currently under development. Check back soon for an interactive experience!</p>
           </motion.div>
 
           <motion.div
