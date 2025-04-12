@@ -6,6 +6,7 @@ import VercelAnalytics from "../components/VercelAnalytics";
 import { GoogleAdsenseScript } from "../components/GoogleAdsense";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Layout from "@/components/Layout";
+import ConsentManager from "@/components/ConsentManager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -97,6 +98,7 @@ export default function RootLayout({
           </Layout>
         </ThemeProvider>
         <VercelAnalytics />
+        <ConsentManager />
       </body>
     </html>
   );
