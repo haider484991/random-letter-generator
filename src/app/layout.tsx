@@ -86,6 +86,7 @@ export default function RootLayout({
           `}
         </Script>
         <meta name="google-site-verification" content="n6sQiJLiZr365FeSQGjaDIsTklbJpYGD_uKcFjjdwD0" />
+        <meta name="google-adsense-account" content="ca-pub-6873688003145340" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
