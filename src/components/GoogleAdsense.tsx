@@ -41,7 +41,7 @@ export default function GoogleAdsense({
               textAlign: 'center',
               ...style,
             }}
-            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Replace with your actual AdSense publisher ID
+            data-ad-client="ca-pub-6873688003145340"
             data-ad-slot={adSlot}
             data-ad-format={adFormat}
             data-full-width-responsive="true"
@@ -61,7 +61,7 @@ export function GoogleAdsenseScript() {
     <Script
       id="adsbygoogle-init"
       strategy="afterInteractive"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" // Replace with your actual AdSense publisher ID
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6873688003145340"
       crossOrigin="anonymous"
     />
   );
