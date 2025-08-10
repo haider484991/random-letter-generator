@@ -244,7 +244,7 @@ export default function TeamPage() {
             <h3 className="text-2xl font-semibold mb-4">Connect with Our Team</h3>
             <p className="text-gray-400 mb-6 max-w-2xl mx-auto">
               Have questions about our educational approach or want to collaborate on research? 
-              We&apos;d love to hear from educators and researchers worldwide.
+              We'd love to hear from educators and researchers worldwide.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 

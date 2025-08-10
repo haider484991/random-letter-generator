@@ -10,6 +10,7 @@ import SpinnerCollection, { SpinnerType } from '@/components/SpinnerCollection';
 import ClientOnly from '@/components/ClientOnly';
 import FloatingLetters from '@/components/FloatingLetters';
 import { useTheme } from '@/components/ThemeProvider';
+import { Sparkles, Zap, Target, Shuffle } from 'lucide-react';
 
 export default function Home() {
   const { theme } = useTheme();
@@ -132,19 +133,381 @@ export default function Home() {
         </motion.div>
       </header>
 
-      <div className="flex-1 py-8 px-4 sm:px-6 max-w-7xl mx-auto relative">
+      <div className="flex-1 py-8 px-4 sm:px-6 max-w-[1400px] mx-auto relative">
+        {/* New Layout: Always Visible Settings */}
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+          {/* Settings Sidebar - Always Visible */}
+          <div className="xl:col-span-1 order-2 xl:order-1">
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="sticky top-8"
+            >
+              <div className="bg-gradient-to-br from-[#1a1a2e]/90 to-[#16213e]/90 backdrop-blur-sm rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#FF3E9D] to-[#0EEDFF] flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <h2 className="text-xl font-bold bg-gradient-to-r from-[#FF3E9D] to-[#0EEDFF] text-transparent bg-clip-text">
+                      Settings
+                    </h2>
+                  </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+                  {/* Quick Presets */}
+                  <div className="mb-8">
+                    <h3 className="text-sm font-semibold text-gray-300 mb-4 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#FFED37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      Quick Presets
+                    </h3>
+                    <div className="grid grid-cols-1 gap-2">
+                      <button
+                        onClick={() => {
+                          setAlphabetType('uppercase');
+                          setIncludeVowels(true);
+                          setEliminationMode(false);
+                          setUseCustomLetters(false);
+                        }}
+                        className="p-3 rounded-xl bg-gradient-to-r from-[#FF3E9D]/10 to-[#0EEDFF]/10 border border-[#FF3E9D]/20 hover:border-[#FF3E9D]/40 transition-all duration-200 text-left group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#FF3E9D] to-[#0EEDFF] flex items-center justify-center text-white font-bold text-sm">
+                            ABC
+                          </div>
+                          <div>
+                            <div className="text-white font-medium text-sm">Standard</div>
+                            <div className="text-gray-400 text-xs">All uppercase letters</div>
+                          </div>
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setAlphabetType('uppercase');
+                          setIncludeVowels(false);
+                          setEliminationMode(false);
+                          setUseCustomLetters(false);
+                        }}
+                        className="p-3 rounded-xl bg-gradient-to-r from-[#EE74FF]/10 to-[#00E061]/10 border border-[#EE74FF]/20 hover:border-[#EE74FF]/40 transition-all duration-200 text-left group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#EE74FF] to-[#00E061] flex items-center justify-center text-white font-bold text-sm">
+                            BCF
+                          </div>
+                          <div>
+                            <div className="text-white font-medium text-sm">Consonants</div>
+                            <div className="text-gray-400 text-xs">No vowels (A,E,I,O,U)</div>
+                          </div>
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setAlphabetType('uppercase');
+                          setIncludeVowels(true);
+                          setEliminationMode(true);
+                          setUseCustomLetters(false);
+                        }}
+                        className="p-3 rounded-xl bg-gradient-to-r from-[#0EEDFF]/10 to-[#FFED37]/10 border border-[#0EEDFF]/20 hover:border-[#0EEDFF]/40 transition-all duration-200 text-left group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#0EEDFF] to-[#FFED37] flex items-center justify-center text-white font-bold text-sm">
+                            🎯
+                          </div>
+                          <div>
+                            <div className="text-white font-medium text-sm">Elimination</div>
+                            <div className="text-gray-400 text-xs">No repeats until reset</div>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Alphabet Type */}
+                  <div className="mb-6">
+                    <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#FF3E9D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                      Alphabet Type
+                    </h3>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { value: 'uppercase', label: 'ABC', desc: 'Upper' },
+                        { value: 'lowercase', label: 'abc', desc: 'Lower' },
+                        { value: 'both', label: 'Aa', desc: 'Mixed' }
+                      ].map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => setAlphabetType(option.value as 'uppercase' | 'lowercase' | 'both')}
+                          className={`
+                            p-3 rounded-xl transition-all duration-200 border-2 group
+                            ${alphabetType === option.value 
+                              ? 'bg-gradient-to-r from-[#FF3E9D]/20 to-[#0EEDFF]/20 border-[#FF3E9D] shadow-lg shadow-[#FF3E9D]/20' 
+                              : 'bg-gray-800/30 border-gray-700/50 hover:border-gray-600/50 hover:bg-gray-700/30'}
+                          `}
+                        >
+                          <div className="text-center">
+                            <div className={`text-lg font-bold mb-1 ${alphabetType === option.value ? 'text-white' : 'text-gray-300'}`}>
+                              {option.label}
+                            </div>
+                            <div className={`text-xs ${alphabetType === option.value ? 'text-gray-200' : 'text-gray-500'}`}>
+                              {option.desc}
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Include Vowels Toggle */}
+                  <div className="mb-6">
+                    <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#0EEDFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Include Vowels
+                    </h3>
+                    <button
+                      onClick={() => setIncludeVowels(!includeVowels)}
+                      className={`
+                        w-full p-4 rounded-xl transition-all duration-200 border-2
+                        ${includeVowels 
+                          ? 'bg-gradient-to-r from-[#0EEDFF]/20 to-[#00E061]/20 border-[#0EEDFF] shadow-lg shadow-[#0EEDFF]/20' 
+                          : 'bg-gray-800/30 border-gray-700/50 hover:border-gray-600/50'}
+                      `}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="flex gap-1">
+                            {['A', 'E', 'I', 'O', 'U'].map((vowel) => (
+                              <div key={vowel} className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold ${
+                                includeVowels ? 'bg-gradient-to-r from-[#0EEDFF] to-[#00E061] text-white' : 'bg-gray-700 text-gray-400'
+                              }`}>
+                                {vowel}
+                              </div>
+                            ))}
+                          </div>
+                          <span className={`text-sm font-medium ${includeVowels ? 'text-white' : 'text-gray-400'}`}>
+                            Vowels
+                          </span>
+                        </div>
+                        <div className={`
+                          w-12 h-6 rounded-full p-1 transition-all duration-200
+                          ${includeVowels ? 'bg-gradient-to-r from-[#0EEDFF] to-[#00E061]' : 'bg-gray-600'}
+                        `}>
+                          <div className={`
+                            w-4 h-4 rounded-full bg-white transition-all duration-200
+                            transform ${includeVowels ? 'translate-x-6' : 'translate-x-0'}
+                          `}></div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Elimination Mode */}
+                  <div className="mb-6">
+                    <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#EE74FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      Elimination Mode
+                    </h3>
+                    <button
+                      onClick={() => setEliminationMode(!eliminationMode)}
+                      className={`
+                        w-full p-4 rounded-xl transition-all duration-200 border-2
+                        ${eliminationMode 
+                          ? 'bg-gradient-to-r from-[#EE74FF]/20 to-[#FF3E9D]/20 border-[#EE74FF] shadow-lg shadow-[#EE74FF]/20' 
+                          : 'bg-gray-800/30 border-gray-700/50 hover:border-gray-600/50'}
+                      `}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className={`text-sm font-medium mb-1 ${eliminationMode ? 'text-white' : 'text-gray-400'}`}>
+                            No Repeats
+                          </div>
+                          <div className={`text-xs ${eliminationMode ? 'text-gray-200' : 'text-gray-500'}`}>
+                            Remove letters after selection
+                          </div>
+                        </div>
+                        <div className={`
+                          w-12 h-6 rounded-full p-1 transition-all duration-200
+                          ${eliminationMode ? 'bg-gradient-to-r from-[#EE74FF] to-[#FF3E9D]' : 'bg-gray-600'}
+                        `}>
+                          <div className={`
+                            w-4 h-4 rounded-full bg-white transition-all duration-200
+                            transform ${eliminationMode ? 'translate-x-6' : 'translate-x-0'}
+                          `}></div>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Custom Letters */}
+                  <div className="mb-6">
+                    <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#FFED37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                      Custom Letters
+                    </h3>
+                    <div className="space-y-3">
+                      <button
+                        onClick={() => setUseCustomLetters(!useCustomLetters)}
+                        className={`
+                          w-full p-3 rounded-xl transition-all duration-200 border-2
+                          ${useCustomLetters 
+                            ? 'bg-gradient-to-r from-[#FFED37]/20 to-[#00E061]/20 border-[#FFED37] shadow-lg shadow-[#FFED37]/20' 
+                            : 'bg-gray-800/30 border-gray-700/50 hover:border-gray-600/50'}
+                        `}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className={`text-sm font-medium ${useCustomLetters ? 'text-white' : 'text-gray-400'}`}>
+                            Enable Custom Letters
+                          </span>
+                          <div className={`
+                            w-10 h-5 rounded-full p-0.5 transition-all duration-200
+                            ${useCustomLetters ? 'bg-gradient-to-r from-[#FFED37] to-[#00E061]' : 'bg-gray-600'}
+                          `}>
+                            <div className={`
+                              w-4 h-4 rounded-full bg-white transition-all duration-200
+                              transform ${useCustomLetters ? 'translate-x-5' : 'translate-x-0'}
+                            `}></div>
+                          </div>
+                        </div>
+                      </button>
+                      {useCustomLetters && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="space-y-2"
+                        >
+                          <textarea
+                            value={customLetters}
+                            onChange={(e) => setCustomLetters(e.target.value)}
+                            placeholder="A, B, C, Ñ, 🎯, Hello, World"
+                            className="w-full h-20 rounded-xl bg-gray-900/60 border border-gray-700/50 text-gray-200 p-3 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FFED37]/40 focus:border-[#FFED37]/40 transition-all duration-200 text-sm"
+                          />
+                          <div className="text-xs text-gray-500">
+                            Separate with commas or spaces. Supports emojis and words.
+                          </div>
+                        </motion.div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Spinner Customization */}
+                  <div className="mb-6">
+                    <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#00E061]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                      Spinner Style
+                    </h3>
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      {[
+                        { value: 'circles', label: 'Circles' },
+                        { value: 'dots', label: 'Dots' },
+                        { value: 'pulse', label: 'Pulse' },
+                        { value: 'wave', label: 'Wave' }
+                      ].map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => setSpinnerType(option.value as SpinnerType)}
+                          className={`
+                            p-3 rounded-xl transition-all duration-200 border
+                            ${spinnerType === option.value 
+                              ? 'bg-gradient-to-r from-[#00E061]/20 to-[#0EEDFF]/20 border-[#00E061] shadow-lg shadow-[#00E061]/20' 
+                              : 'bg-gray-800/30 border-gray-700/50 hover:border-gray-600/50'}
+                          `}
+                        >
+                          <div className="text-center">
+                            <div className="h-6 flex items-center justify-center mb-2">
+                              <SpinnerCollection 
+                                type={option.value as SpinnerType} 
+                                size={20} 
+                                color={spinnerColor}
+                                secondaryColor={spinnerSecondaryColor}
+                              />
+                            </div>
+                            <div className={`text-xs ${spinnerType === option.value ? 'text-white' : 'text-gray-400'}`}>
+                              {option.label}
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Color Schemes */}
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { name: 'Vibrant', primary: '#FF3E9D', secondary: '#0EEDFF' },
+                        { name: 'Ocean', primary: '#0EEDFF', secondary: '#00E061' },
+                        { name: 'Sunset', primary: '#FF3E9D', secondary: '#FFED37' },
+                        { name: 'Neon', primary: '#EE74FF', secondary: '#00E061' }
+                      ].map((scheme) => (
+                        <button
+                          key={scheme.name}
+                          onClick={() => {
+                            setSpinnerColor(scheme.primary);
+                            setSpinnerSecondaryColor(scheme.secondary);
+                          }}
+                          className={`
+                            p-2 rounded-lg transition-all duration-200 border
+                            ${spinnerColor === scheme.primary && spinnerSecondaryColor === scheme.secondary
+                              ? 'border-white/40 bg-white/10' 
+                              : 'border-gray-700/50 hover:border-gray-600/50'}
+                          `}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className="flex gap-1">
+                              <div 
+                                className="w-3 h-3 rounded-full" 
+                                style={{ backgroundColor: scheme.primary }}
+                              ></div>
+                              <div 
+                                className="w-3 h-3 rounded-full" 
+                                style={{ backgroundColor: scheme.secondary }}
+                              ></div>
+                            </div>
+                            <span className="text-xs text-gray-300">{scheme.name}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Live Preview */}
+                  <div className="bg-gray-900/50 rounded-xl p-4 border border-gray-700/30">
+                    <h4 className="text-xs font-semibold text-gray-400 mb-3 uppercase tracking-wide">Live Preview</h4>
+                    <div className="flex items-center justify-center h-16 bg-gray-800/50 rounded-lg">
+                      <SpinnerCollection 
+                        type={spinnerType} 
+                        size={40} 
+                        color={spinnerColor}
+                        secondaryColor={spinnerSecondaryColor}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
           {/* Letter Generator Column */}
-          <div className="flex-1" id="generator">
-            <div className="relative">
-
-              <motion.div 
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="mb-12"
-              >
+          <div className="xl:col-span-3 order-1 xl:order-2" id="generator">
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mb-12"
+            >
               <LetterGenerator 
                 alphabetType={alphabetType}
                 includeVowels={includeVowels}
@@ -156,14 +519,14 @@ export default function Home() {
                 spinnerColor={spinnerColor}
                 spinnerSecondaryColor={spinnerSecondaryColor}
               />
-              </motion.div>
+            </motion.div>
 
-              <motion.div
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-[#0EEDFF] to-[#EE74FF] text-transparent bg-clip-text">The Most Advanced Random Letter Generator Online</h2>
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-[#0EEDFF] to-[#EE74FF] text-transparent bg-clip-text">The Most Advanced Random Letter Generator Online</h2>
                 <div className="text-gray-300 space-y-4">
                   <p>
                     Our premium Random Letter Generator is the most feature-rich tool available, offering advanced capabilities that surpass all competitors. With its stunning animated spinning wheel interface and professional-grade features, it&apos;s trusted by educators, game enthusiasts, and creative professionals worldwide.
@@ -216,33 +579,10 @@ export default function Home() {
                     <li><span className="text-[#EE74FF]">Creative Writing:</span> Writers can use it for creative prompts, word association exercises, or overcoming writer&apos;s block.</li>
                     <li><span className="text-[#00E061]">Decision Making:</span> Use it to make random selections or assignments when an arbitrary letter is needed.</li>
                   </ul>
-                </div>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </div>
-
-          {/* Settings Column */}
-          <div className="lg:w-80">
-            <Settings 
-              alphabetType={alphabetType}
-              setAlphabetType={setAlphabetType}
-              includeVowels={includeVowels}
-              setIncludeVowels={setIncludeVowels}
-              eliminationMode={eliminationMode}
-              setEliminationMode={setEliminationMode}
-              useCustomLetters={useCustomLetters}
-              setUseCustomLetters={setUseCustomLetters}
-              customLetters={customLetters}
-              setCustomLetters={setCustomLetters}
-              spinnerType={spinnerType}
-              setSpinnerType={setSpinnerType}
-              spinnerColor={spinnerColor}
-              setSpinnerColor={setSpinnerColor}
-              spinnerSecondaryColor={spinnerSecondaryColor}
-              setSpinnerSecondaryColor={setSpinnerSecondaryColor}
-            />
-          </div>
-            </div>
+        </div>
 
         <motion.div
           initial={{ y: 30, opacity: 0 }}

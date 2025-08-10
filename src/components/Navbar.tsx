@@ -40,56 +40,31 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     { name: 'Home', href: '/', icon: '🏠' },
     { name: 'Letter Generator', href: '/#generator', icon: '🎯' },
     { 
+      name: 'Generators', 
+      href: '/generators', 
+      icon: '🎲',
+      dropdown: [
+        { name: 'Random Letters', href: '/', icon: '🔤' },
+        { name: 'Animal Generator', href: '/animal-generator', icon: '🐾' },
+        { name: 'Cursed Text', href: '/cursed-text', icon: '👻' },
+        { name: 'Pictionary Words', href: '/pictionary', icon: '🎨' },
+        { name: 'Pokemon Generator', href: '/pokemon-generator', icon: '⚡' },
+        { name: 'Random Objects', href: '/random-objects', icon: '📦' }
+      ]
+    },
+    { 
       name: 'Teaching Guides', 
       href: '/guides', 
       icon: '📚',
       dropdown: [
         { name: 'All Guides', href: '/guides', icon: '📖' },
         { name: 'Teaching the Alphabet', href: '/guides/teaching-alphabet', icon: '🔤' },
-        { name: 'Classroom Integration', href: '/guides/classroom-integration', icon: '🏫' },
-        { name: 'Phonics Instruction', href: '/guides/phonics-instruction', icon: '🔊' },
-        { name: 'Assessment Tools', href: '/guides/assessment-tools', icon: '📊' },
-        { name: 'Parent Resources', href: '/guides/parent-resources', icon: '👨‍👩‍👧‍👦' }
+        { name: 'Classroom Integration', href: '/guides/classroom-integration', icon: '🏫' }
       ]
     },
-    { 
-      name: 'Activities', 
-      href: '/activities', 
-      icon: '🎮',
-      dropdown: [
-        { name: 'All Activities', href: '/activities', icon: '🎯' },
-        { name: 'Alphabet Games', href: '/activities/alphabet-games', icon: '🎲' },
-        { name: 'Letter Recognition', href: '/activities/letter-recognition', icon: '👁️' },
-        { name: 'Writing Practice', href: '/activities/writing-practice', icon: '✍️' },
-        { name: 'Phonics Activities', href: '/activities/phonics', icon: '🎵' },
-        { name: 'Group Activities', href: '/activities/group', icon: '👥' }
-      ]
-    },
-    { 
-      name: 'Resources', 
-      href: '/resources', 
-      icon: '📁',
-      dropdown: [
-        { name: 'All Resources', href: '/resources', icon: '📚' },
-        { name: 'Worksheets', href: '/resources/worksheets', icon: '📄' },
-        { name: 'Lesson Plans', href: '/resources/lesson-plans', icon: '📋' },
-        { name: 'Assessment Tools', href: '/resources/assessments', icon: '📊' },
-        { name: 'Interactive Materials', href: '/resources/interactive', icon: '🖱️' },
-        { name: 'Printables', href: '/resources/printables', icon: '🖨️' }
-      ]
-    },
-    { 
-      name: 'Blog', 
-      href: '/blog', 
-      icon: '📝',
-      dropdown: [
-        { name: 'All Posts', href: '/blog', icon: '📰' },
-        { name: 'Teaching Tips', href: '/blog/teaching-tips', icon: '💡' },
-        { name: 'Research & Studies', href: '/blog/research', icon: '🔬' },
-        { name: 'Classroom Stories', href: '/blog/stories', icon: '📖' },
-        { name: 'Educational Technology', href: '/blog/technology', icon: '💻' }
-      ]
-    },
+    { name: 'Activities', href: '/activities', icon: '🎮' },
+    { name: 'Resources', href: '/resources', icon: '📁' },
+    { name: 'Blog', href: '/blog', icon: '📝' },
     { 
       name: 'About', 
       href: '/about', 
@@ -97,8 +72,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       dropdown: [
         { name: 'Our Mission', href: '/about', icon: '🎯' },
         { name: 'Our Team', href: '/about/team', icon: '👥' },
-        { name: 'Educational Philosophy', href: '/about/philosophy', icon: '🧠' },
-        { name: 'Success Stories', href: '/about/success-stories', icon: '🏆' }
+        { name: 'Privacy Policy', href: '/privacy-policy', icon: '🔒' },
+        { name: 'Terms of Service', href: '/terms-of-service', icon: '📋' }
       ]
     },
     { name: 'Contact', href: '/contact', icon: '📧' }
