@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import LetterGenerator from '@/components/LetterGenerator';
 import Settings from '@/components/Settings';
-import AdBanner from '@/components/AdBanner';
+import Navigation from '@/components/Navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import SpinnerCollection, { SpinnerType } from '@/components/SpinnerCollection';
 import ClientOnly from '@/components/ClientOnly';
@@ -15,8 +15,11 @@ export default function Home() {
   const { theme } = useTheme();
   const [alphabetType, setAlphabetType] = useState<'uppercase' | 'lowercase' | 'both'>('uppercase');
   const [includeVowels, setIncludeVowels] = useState(true);
+  // New feature states
+  const [eliminationMode, setEliminationMode] = useState(false);
+  const [useCustomLetters, setUseCustomLetters] = useState(false);
+  const [customLetters, setCustomLetters] = useState('');
   const [loading, setLoading] = useState(true);
-  const [adsReady, setAdsReady] = useState(false);
   
   // Spinner settings
   const [spinnerType, setSpinnerType] = useState<SpinnerType>('circles');
@@ -32,17 +35,7 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Set ads ready after page load
-  useEffect(() => {
-    if (!loading) {
-      // Wait a bit after the page has loaded to initialize ads
-      const timer = setTimeout(() => {
-        setAdsReady(true);
-      }, 1000);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [loading]);
+  // Ads removed: no ad initialization
 
   return (
     <>
@@ -75,7 +68,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <header className="pt-8 pb-6 px-4 sm:px-6 text-center relative">
+      <header className="pt-10 pb-10 px-4 sm:px-6 text-center relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Enhanced background with vibrant colors */}
           <AnimatePresence mode="wait">
@@ -106,50 +99,59 @@ export default function Home() {
             <FloatingLetters />
           </ClientOnly>
           
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mt-8 bg-gradient-to-r from-[#FF3E9D] via-[#EE74FF] to-[#0EEDFF] text-transparent bg-clip-text leading-tight">
-              Random Letter Generator
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mt-8 bg-gradient-to-r from-[#FF3E9D] via-[#EE74FF] to-[#0EEDFF] text-transparent bg-clip-text leading-tight drop-shadow-[0_2px_12px_rgba(238,116,255,0.25)]">
+              Advanced Random Letter Generator - Spinning Wheel Tool
           </h1>
           <p className="mt-4 text-xl text-gray-300 max-w-3xl mx-auto">
-            Generate random letters with our beautiful spinning wheel. Perfect for games, teaching, learning activities, decision making, and more.
+            The most advanced random letter generator with elimination mode, custom alphabets, educator features, and statistics. Perfect for games, teaching, learning activities, and professional use.
           </p>
+          
+          {/* Feature highlights */}
+          <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm">
+            <span className="px-3 py-1 bg-[#FF3E9D]/20 text-[#FF3E9D] rounded-full border border-[#FF3E9D]/30">
+              ✨ Elimination Mode
+            </span>
+            <span className="px-3 py-1 bg-[#0EEDFF]/20 text-[#0EEDFF] rounded-full border border-[#0EEDFF]/30">
+              🎯 Custom Alphabets
+            </span>
+            <span className="px-3 py-1 bg-[#EE74FF]/20 text-[#EE74FF] rounded-full border border-[#EE74FF]/30">
+              👩‍🏫 Educator Mode
+            </span>
+            <span className="px-3 py-1 bg-[#00E061]/20 text-[#00E061] rounded-full border border-[#00E061]/30">
+              📊 Statistics & Export
+            </span>
+          </div>
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <Link href="#generator" className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-[#FF3E9D] to-[#0EEDFF] text-white font-semibold shadow-lg hover:opacity-90 transition">
+              Start Spinning
+            </Link>
+            <Link href="#about" className="inline-flex items-center px-6 py-3 rounded-full border border-white/20 text-white/90 hover:bg-white/10 transition">
+              Learn More
+            </Link>
+          </div>
         </motion.div>
       </header>
 
       <div className="flex-1 py-8 px-4 sm:px-6 max-w-7xl mx-auto relative">
-        {/* Left ad banner */}
-        {adsReady && (
-          <div className="hidden lg:block fixed left-0 top-1/2 transform -translate-y-1/2 z-20">
-            <AdBanner adSlot="1122334455" adFormat="vertical" />
-          </div>
-        )}
-
-        {/* Right ad banner */}
-        {adsReady && (
-          <div className="hidden lg:block fixed right-0 top-1/2 transform -translate-y-1/2 z-20">
-            <AdBanner adSlot="5566778899" adFormat="vertical" />
-          </div>
-        )}
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Letter Generator Column */}
-          <div className="flex-1">
+          <div className="flex-1" id="generator">
             <div className="relative">
-      {adsReady && (
-                <div className="mb-8">
-                  <AdBanner adSlot="3344556677" adFormat="horizontal" />
-        </div>
-      )}
 
-        <motion.div 
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+              <motion.div 
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mb-12"
               >
               <LetterGenerator 
                 alphabetType={alphabetType}
                 includeVowels={includeVowels}
-                  theme={theme} 
+                eliminationMode={eliminationMode}
+                useCustomLetters={useCustomLetters}
+                customLetters={customLetters}
+                theme={theme} 
                 spinnerType={spinnerType}
                 spinnerColor={spinnerColor}
                 spinnerSecondaryColor={spinnerSecondaryColor}
@@ -161,19 +163,49 @@ export default function Home() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-[#0EEDFF] to-[#EE74FF] text-transparent bg-clip-text">About the Random Letter Generator</h2>
+                <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-[#0EEDFF] to-[#EE74FF] text-transparent bg-clip-text">The Most Advanced Random Letter Generator Online</h2>
                 <div className="text-gray-300 space-y-4">
                   <p>
-                    Our Random Letter Generator is a versatile tool that produces random letters from the English alphabet. With its colorful, animated spinning wheel interface, it transforms a simple randomization process into an engaging, visually appealing experience.
+                    Our premium Random Letter Generator is the most feature-rich tool available, offering advanced capabilities that surpass all competitors. With its stunning animated spinning wheel interface and professional-grade features, it's trusted by educators, game enthusiasts, and creative professionals worldwide.
                   </p>
-                  <p>
-                    The tool allows for customization through several settings, enabling users to tailor the letter generation to specific needs:
-                  </p>
+                  
+                  <div className="bg-gradient-to-r from-[#FF3E9D]/10 to-[#0EEDFF]/10 p-4 rounded-lg border border-[#EE74FF]/20 mb-6">
+                    <h3 className="text-lg font-semibold text-white mb-3">🚀 Exclusive Advanced Features</h3>
+                    <div className="grid md:grid-cols-2 gap-3 text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#FF3E9D]">🎯</span>
+                        <span><strong>Elimination Mode:</strong> No-repeat until reset</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#0EEDFF]">📝</span>
+                        <span><strong>Custom Alphabets:</strong> Use any letters/tokens</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#EE74FF]">🔗</span>
+                        <span><strong>Shareable Links:</strong> Save & share settings</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#00E061]">👩‍🏫</span>
+                        <span><strong>Educator Mode:</strong> Classroom-optimized</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#FFED37]">📊</span>
+                        <span><strong>Statistics:</strong> Track & export results</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#FF3E9D]">⚡</span>
+                        <span><strong>Performance:</strong> Optimized animations</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-lg font-semibold text-white mb-3">Standard Customization Options</h3>
                   <ul className="list-disc pl-5 space-y-2">
-                    <li><span className="text-[#0EEDFF]">Alphabet Type:</span> Choose between uppercase letters, lowercase letters, or both.</li>
-                    <li><span className="text-[#FF3E9D]">Vowel Inclusion:</span> Option to include or exclude vowels (A, E, I, O, U) from the selection.</li>
-                    <li><span className="text-[#EE74FF]">Spinner Style:</span> Select from a variety of spinner designs to personalize the visual experience.</li>
-                    <li><span className="text-[#00E061]">Color Themes:</span> Switch between a vibrant, colorful interface or a more subdued dark theme.</li>
+                    <li><span className="text-[#0EEDFF]">Alphabet Type:</span> Choose between uppercase letters, lowercase letters, or both</li>
+                    <li><span className="text-[#FF3E9D]">Vowel Control:</span> Include or exclude vowels (A, E, I, O, U) from selection</li>
+                    <li><span className="text-[#EE74FF]">Spinner Styles:</span> Multiple animated spinner designs for visual appeal</li>
+                    <li><span className="text-[#00E061]">Color Themes:</span> Vibrant or dark theme options for different preferences</li>
+                    <li><span className="text-[#FFED37]">Sound Effects:</span> Engaging audio feedback with volume control</li>
                   </ul>
                   <p>
                     This Random Letter Generator serves a wide range of purposes across educational, recreational, and creative contexts:
@@ -196,6 +228,12 @@ export default function Home() {
               setAlphabetType={setAlphabetType}
               includeVowels={includeVowels}
               setIncludeVowels={setIncludeVowels}
+              eliminationMode={eliminationMode}
+              setEliminationMode={setEliminationMode}
+              useCustomLetters={useCustomLetters}
+              setUseCustomLetters={setUseCustomLetters}
+              customLetters={customLetters}
+              setCustomLetters={setCustomLetters}
               spinnerType={spinnerType}
               setSpinnerType={setSpinnerType}
               spinnerColor={spinnerColor}
@@ -212,15 +250,10 @@ export default function Home() {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mt-16"
         >
-          {/* Middle ad banner */}
-          {adsReady && (
-            <div className="my-10">
-              <AdBanner adSlot="7788990011" adFormat="horizontal" />
-            </div>
-          )}
+          {/* Ads removed */}
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-gray-800/30 p-6 rounded-lg border border-gray-700">
+            <div className="bg-gray-800/30 p-6 rounded-lg border border-gray-700" id="about">
               <h3 className="text-xl font-semibold mb-3 text-[#0EEDFF]">How to Use the Random Letter Generator</h3>
               <ol className="list-decimal pl-5 space-y-3 text-gray-300">
                 <li>Configure your preferences using the settings panel on the right.</li>
@@ -242,12 +275,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Bottom ad banner */}
-          {adsReady && (
-            <div className="my-10">
-              <AdBanner adSlot="9988776655" adFormat="horizontal" />
-            </div>
-          )}
+          {/* Ads removed */}
 
           <h3 className="text-2xl font-semibold mt-8 mb-4 text-white">Frequently Asked Questions About Random Letter Generation</h3>
           <div className="space-y-4 mb-8">

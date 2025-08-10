@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// removed next/font on Windows to avoid target.css resolution error
 import "./globals.css";
 import Script from "next/script";
 import VercelAnalytics from "../components/VercelAnalytics";
@@ -8,20 +8,12 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Layout from "@/components/Layout";
 import ConsentManager from "@/components/ConsentManager";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Using system fonts for now; Next font import disabled
 
 export const metadata: Metadata = {
-  title: "Random Letter Generator | Free Online Tool for Games, Teaching & Learning",
-  description: "Generate random letters with our beautiful spinning wheel. Perfect for games, teaching, learning activities, decision making, and more. Customize with uppercase, lowercase, vowels, or consonants.",
-  keywords: "random letter generator, letter picker, alphabet generator, random alphabet, letter wheel, teaching tool, educational games, random letter picker, letter spinner",
+  title: "Advanced Random Letter Generator | Elimination Mode, Custom Alphabets & Educator Tools",
+  description: "The most advanced random letter generator with unique elimination mode, custom alphabet input, educator features, and statistics export. Perfect for games, teaching, classroom activities, and professional use. Free online spinning wheel tool.",
+  keywords: "random letter generator, elimination mode, custom alphabet, educator mode, letter picker, spinning wheel, teaching tool, classroom activities, no repeat letters, statistics export, shareable links, advanced features, professional letter generator",
   authors: [{ name: "Random Letter Generator" }],
   creator: "Random Letter Generator",
   publisher: "Random Letter Generator",
@@ -90,7 +82,7 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-6873688003145340" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`antialiased`}
       >
         <ThemeProvider>
           <Layout>

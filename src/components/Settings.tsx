@@ -6,8 +6,17 @@ import SpinnerCollection, { SpinnerType } from './SpinnerCollection';
 interface SettingsProps {
   alphabetType: 'uppercase' | 'lowercase' | 'both';
   includeVowels: boolean;
+  // New feature props
+  eliminationMode: boolean;
+  useCustomLetters: boolean;
+  customLetters: string; // comma/space separated characters
+
   onAlphabetTypeChange?: (type: 'uppercase' | 'lowercase' | 'both') => void;
   onIncludeVowelsChange?: (include: boolean) => void;
+  onEliminationModeChange?: (on: boolean) => void;
+  onUseCustomLettersChange?: (on: boolean) => void;
+  onCustomLettersChange?: (value: string) => void;
+
   spinnerType: SpinnerType;
   spinnerColor: string;
   spinnerSecondaryColor: string;
@@ -16,6 +25,9 @@ interface SettingsProps {
   onSpinnerSecondaryColorChange?: (color: string) => void;
   setAlphabetType?: (type: 'uppercase' | 'lowercase' | 'both') => void;
   setIncludeVowels?: (include: boolean) => void;
+  setEliminationMode?: (on: boolean) => void;
+  setUseCustomLetters?: (on: boolean) => void;
+  setCustomLetters?: (value: string) => void;
   setSpinnerType?: (type: SpinnerType) => void;
   setSpinnerColor?: (color: string) => void;
   setSpinnerSecondaryColor?: (color: string) => void;
@@ -24,8 +36,14 @@ interface SettingsProps {
 const Settings: React.FC<SettingsProps> = ({
   alphabetType,
   includeVowels,
+  eliminationMode,
+  useCustomLetters,
+  customLetters,
   onAlphabetTypeChange,
   onIncludeVowelsChange,
+  onEliminationModeChange,
+  onUseCustomLettersChange,
+  onCustomLettersChange,
   spinnerType,
   spinnerColor,
   spinnerSecondaryColor,
@@ -34,6 +52,9 @@ const Settings: React.FC<SettingsProps> = ({
   onSpinnerSecondaryColorChange,
   setAlphabetType,
   setIncludeVowels,
+  setEliminationMode,
+  setUseCustomLetters,
+  setCustomLetters,
   setSpinnerType,
   setSpinnerColor,
   setSpinnerSecondaryColor
@@ -42,7 +63,7 @@ const Settings: React.FC<SettingsProps> = ({
   const [activeTab, setActiveTab] = useState<'letters' | 'spinner'>('letters');
   const [isSettingsHovered, setIsSettingsHovered] = useState(false);
   const [playClick] = useSound('/sounds/click.mp3', { volume: 0.3 });
-  const [playHover] = useSound('/sounds/hover.mp3', { volume: 0.2 });
+  const [playHover] = useSound('/sounds/select.mp3', { volume: 0.2 });
   const isSettingsHoveredRef = useRef(false);
   const isMounted = useRef(false);
 
@@ -161,7 +182,21 @@ const Settings: React.FC<SettingsProps> = ({
     }
   };
 
+  const parseCustomLetters = (input: string): string[] => {
+    // Split by commas/whitespace, trim, and keep unique, non-empty single Unicode characters or tokens
+    const parts = input
+      .split(/[,\s]+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+    // Allow multi-character tokens, but dedupe
+    const unique = Array.from(new Set(parts));
+    return unique;
+  };
+
   const getLetterArray = (): string[] => {
+    if (useCustomLetters) {
+      return parseCustomLetters(customLetters);
+    }
     const vowels = ['A', 'E', 'I', 'O', 'U'];
     const consonants = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z'];
     
@@ -315,6 +350,60 @@ const Settings: React.FC<SettingsProps> = ({
                         `}></div>
                       </div>
                     </button>
+                  </div>
+
+                  {/* Elimination Mode */}
+                  <div className="mb-6">
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Elimination Mode (no repeats until reset)</label>
+                    <button
+                      onClick={() => {
+                        playSwitchSound();
+                        onEliminationModeChange?.(!eliminationMode);
+                        setEliminationMode?.(!eliminationMode);
+                      }}
+                      className={`
+                        w-full py-2 px-4 rounded-lg flex items-center justify-between
+                        ${eliminationMode
+                          ? 'bg-gradient-to-r from-[#FF3E9D]/20 to-[#0EEDFF]/20 border border-[#EE74FF]/30'
+                          : 'bg-gray-800/50 border border-gray-700/50'}
+                        transition-all duration-200
+                      `}
+                    >
+                      <span className="text-gray-300">Remove letters after they are drawn</span>
+                      <div className={`${eliminationMode ? 'bg-gradient-to-r from-[#FF3E9D] to-[#0EEDFF]' : 'bg-gray-700'} w-10 h-6 rounded-full p-1 transition-all duration-200`}>
+                        <div className={`w-4 h-4 rounded-full bg-white transition-all duration-200 transform ${eliminationMode ? 'translate-x-4' : 'translate-x-0'}`}></div>
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Custom Letters */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="block text-sm font-medium text-gray-300">Use Custom Letters</label>
+                      <button
+                        onClick={() => {
+                          playSwitchSound();
+                          onUseCustomLettersChange?.(!useCustomLetters);
+                          setUseCustomLetters?.(!useCustomLetters);
+                        }}
+                        className={`
+                          py-1 px-3 rounded-full text-xs border
+                          ${useCustomLetters ? 'border-[#EE74FF]/40 text-white bg-[#EE74FF]/10' : 'border-gray-700/50 text-gray-300'}
+                        `}
+                      >
+                        {useCustomLetters ? 'On' : 'Off'}
+                      </button>
+                    </div>
+                    <textarea
+                      value={customLetters}
+                      onChange={(e) => {
+                        onCustomLettersChange?.(e.target.value);
+                        setCustomLetters?.(e.target.value);
+                      }}
+                      placeholder="Enter letters or tokens separated by commas or spaces (e.g., A,B,C or A B C or A, B, Ñ)"
+                      className="w-full min-h-[84px] rounded-lg bg-gray-900/60 border border-gray-700/50 text-gray-200 p-3 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#EE74FF]/40"
+                    />
+                    <p className="mt-1 text-xs text-gray-500">Preview updates live. When enabled, custom letters override alphabet settings.</p>
                   </div>
                   
                   <div className="mb-2">

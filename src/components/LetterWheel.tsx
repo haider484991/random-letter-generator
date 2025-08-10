@@ -45,6 +45,35 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
   // Calculate the angle for each letter segment
   const segmentAngle = 360 / letters.length;
   
+  // Direct mapping based on Chart.js behavior
+  const rotationForIndex = (i: number) => {
+    // Chart.js starts at -90°, so to put segment i at top (0°):
+    // We need to rotate by the amount that brings segment i's center to 0°
+    const segmentCenterAngle = -90 + i * segmentAngle + segmentAngle / 2;
+    const rotation = -segmentCenterAngle;
+    return ((rotation % 360) + 360) % 360;
+  };
+  
+  const indexForRotation = (currentRotation: number) => {
+    const normalized = ((currentRotation % 360) + 360) % 360;
+    
+    // Simple approach: try different offsets to find what works
+    // Based on the screenshot, when rotation is ~0, we want the letter that's visually at the top
+    // Let's try a direct mapping where index 0 corresponds to the top position
+    
+    // Convert rotation to segment index, accounting for Chart.js starting at -90°
+    const adjustedRotation = normalized + 90; // Adjust for Chart.js -90° start
+    const rawIndex = adjustedRotation / segmentAngle;
+    const index = Math.floor(rawIndex) % letters.length;
+    
+    // Debug logging to help calibrate
+    if (typeof window !== 'undefined' && window.console) {
+      console.log('Rotation:', normalized, 'Raw index:', rawIndex, 'Final index:', index, 'Letter:', letters[index]);
+    }
+    
+    return ((index % letters.length) + letters.length) % letters.length;
+  };
+  
   // Define vibrant colors for the wheel segments inspired by the CodePen
   const backgroundColors = letters.map((_, index) => {
     const colors = [
@@ -73,24 +102,11 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
   // Function to get the current letter at the pointer position
   // Using useCallback to memoize the function
   const getCurrentLetterAtPointer = useCallback((currentRotation: number) => {
-    // With the center pointer design, we need to determine which letter is at the top
-    // The wheel rotates clockwise, so we need to calculate which segment is at the top
-    const normalizedRotation = (currentRotation % 360 + 360) % 360;
-    
-    // Account for the chart's initial rotation offset (-90 degrees)
-    // and calculate which segment is at the top (0 degrees)
-    // We need to invert the rotation because the wheel rotates clockwise
-    const segmentIndex = Math.floor(((360 - normalizedRotation + 90) % 360) / segmentAngle);
-    
-    // Ensure the index is within bounds
-    const letterIndex = segmentIndex % letters.length;
-    
-    // For debugging
-    console.log('Rotation:', normalizedRotation, 'Segment Index:', segmentIndex, 'Letter Index:', letterIndex, 'Letter:', letters[letterIndex]);
-    
+    const idx = indexForRotation(currentRotation);
+    const normalizedRotation = ((currentRotation % 360) + 360) % 360;
     return {
-      index: letterIndex,
-      letter: letters[letterIndex],
+      index: idx,
+      letter: letters[idx],
       rotation: normalizedRotation
     };
   }, [letters, segmentAngle]);
@@ -138,18 +154,6 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
     cutout: '60%', // Larger center hole for the spin button
   } as const;
 
-  // Update rotationRef when rotation state changes
-  useEffect(() => {
-    rotationRef.current = rotation;
-  }, [rotation]);
-
-  // Ensure chart is properly initialized after mount
-  useEffect(() => {
-    if (chartRef.current) {
-      chartRef.current.update();
-    }
-  }, []);
-
   useEffect(() => {
     // Update the spinning ref to match the spinning prop
     spinningRef.current = spinning;
@@ -160,10 +164,33 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
       setSelectedLetter(null);
       setShowLetterAnimation(false);
       
+      // Respect prefers-reduced-motion: skip animation and pick immediately
+      const prefersReducedMotion = typeof window !== 'undefined' 
+        && typeof window.matchMedia === 'function' 
+        && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        const randomIndex = Math.floor(Math.random() * letters.length);
+        const adjustedRotation = rotationForIndex(randomIndex);
+        rotationRef.current = adjustedRotation;
+        if (wheelRef.current) {
+          wheelRef.current.style.transform = `rotate(${adjustedRotation}deg)`;
+        }
+        setRotation(adjustedRotation);
+        const result = getCurrentLetterAtPointer(adjustedRotation);
+        setSelectedIndex(result.index);
+        setSelectedLetter(result.letter);
+        setShowLetterAnimation(true);
+        playWin();
+        onSpinComplete(result.letter);
+        spinningRef.current = false;
+        return;
+      }
+      
       // Initial speed and decay variables
       let speed = 20; // Initial rotation speed
       const minSpeed = 0.5; // Higher minimum speed for faster stop (was 0.1)
       const decay = 0.99; // Faster decay for quicker deceleration (was 0.997)
+      
       let lastTimestamp = performance.now();
       let currentRotation = rotationRef.current; // Use the ref value
       
@@ -184,9 +211,10 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
         // Update the rotation ref first
         rotationRef.current = currentRotation % 360;
         
-        // Only update state occasionally to prevent too many re-renders
-        // This is crucial to prevent the maximum update depth exceeded error
-        setRotation(rotationRef.current);
+        // Apply rotation directly to the wheel to avoid re-renders
+        if (wheelRef.current) {
+          wheelRef.current.style.transform = `rotate(${rotationRef.current}deg)`;
+        }
         
         // Play tick sound at intervals based on speed
         // Only play sound every 100ms to avoid too many sounds
@@ -202,46 +230,33 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
         if (speed > minSpeed && spinningRef.current) {
           animationRef.current = requestAnimationFrame(animate);
         } else if (spinningRef.current) {
-          // When we're about to stop, ensure we land exactly on a segment center
-          // This ensures the pointer aligns perfectly with a letter
+          // When we're about to stop, snap to the exact center of the nearest segment
           const finalRotation = currentRotation % 360;
-          
-          // Calculate how far we are from the center of the nearest segment
-          const segmentOffset = finalRotation % segmentAngle;
-          const halfSegment = segmentAngle / 2;
-          
-          // Adjust to the nearest segment center
-          let adjustedRotation;
-          if (segmentOffset < halfSegment) {
-            // Closer to the previous segment center
-            adjustedRotation = finalRotation - segmentOffset;
-          } else {
-            // Closer to the next segment center
-            adjustedRotation = finalRotation + (segmentAngle - segmentOffset);
-          }
+          const targetIndex = indexForRotation(finalRotation);
+          const adjustedRotation = rotationForIndex(targetIndex);
           
           // Update the rotation ref
           rotationRef.current = adjustedRotation % 360;
           
           // Apply the adjusted rotation
-          setRotation(rotationRef.current);
+          if (wheelRef.current) {
+            wheelRef.current.style.transform = `rotate(${adjustedRotation}deg)`;
+          }
+          setRotation(adjustedRotation);
           
-          // Get the letter at the pointer position using the adjusted rotation
-          const result = getCurrentLetterAtPointer(adjustedRotation);
-          
-          // Set the selected letter
-          setSelectedIndex(result.index);
-          setSelectedLetter(result.letter);
+          // Set the selected letter using the snapped index
+          setSelectedIndex(targetIndex);
+          setSelectedLetter(letters[targetIndex]);
           
           // Show the letter animation after a short delay
           setTimeout(() => {
-            if (spinningRef.current === false) { // Only show if we're still in the stopped state
+            if (spinningRef.current === false) {
               setShowLetterAnimation(true);
             }
           }, 300);
           
           playWin();
-          onSpinComplete(result.letter);
+          onSpinComplete(letters[targetIndex]);
           spinningRef.current = false;
         }
       };
@@ -258,18 +273,6 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
       };
     }
   }, [spinning, playTick, playWin, onSpinComplete, getCurrentLetterAtPointer, letters.length, segmentAngle]);
-
-  // Update rotation ref when rotation state changes
-  useEffect(() => {
-    rotationRef.current = rotation;
-  }, [rotation]);
-
-  // Update chart rotation
-  useEffect(() => {
-    if (chartRef.current) {
-      chartRef.current.update();
-    }
-  }, [rotation]);
 
   // Get the color for the selected letter
   const getSelectedLetterColor = () => {
@@ -297,7 +300,7 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
         ref={wheelRef}
         className="wheel absolute inset-0 transform"
         style={{ 
-          transform: `rotate(${rotation}deg)`,
+          transform: spinning ? undefined : `rotate(${rotation}deg)`,
           transition: spinning ? 'none' : 'transform 0.3s ease-out',
           willChange: 'transform',
           transformOrigin: 'center center',
@@ -317,9 +320,9 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
       </div>
       
       {/* Center-to-top pointer (non-rotating) */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
+      <div className="absolute inset-0 z-20 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6">
-          <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-[#FF3E9D]"></div>
+          <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-[#FF3E9D] drop-shadow-md animate-pulse"></div>
         </div>
       </div>
       
@@ -328,6 +331,8 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
         <button
           onClick={onSpin}
           disabled={spinning}
+          aria-label={spinning ? 'Spinning' : 'Spin the letter wheel'}
+          onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && !spinning) { e.preventDefault(); onSpin(); } }}
           className="spin-button relative flex items-center justify-center w-[40%] h-[40%] rounded-full bg-gradient-to-br from-[#1a1a2e] to-[#16213e] shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
           style={{
             boxShadow: '0 0 20px rgba(238, 116, 255, 0.3), inset 0 0 15px rgba(0, 0, 0, 0.5)',
@@ -386,6 +391,10 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
           {/* Decorative ring around button */}
           <div className="absolute inset-0 rounded-full border-2 border-[#FF3E9D]/30 animate-pulse"></div>
         </button>
+        {/* Screen reader announcement for selected letter */}
+        <div aria-live="polite" role="status" className="sr-only">
+          {selectedLetter ? `Selected letter ${selectedLetter}` : ''}
+        </div>
       </div>
       
       {/* Selected letter highlight */}
@@ -393,7 +402,7 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
         <div 
           className="absolute inset-0 z-5 pointer-events-none"
           style={{
-            transform: `rotate(${selectedIndex * segmentAngle}deg)`,
+            transform: `rotate(${selectedIndex * segmentAngle - 90}deg)`,
             transformOrigin: 'center',
           }}
         >

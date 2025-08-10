@@ -8,6 +8,9 @@ import { SpinnerType } from './SpinnerCollection';
 interface LetterGeneratorProps {
   alphabetType?: 'uppercase' | 'lowercase' | 'both';
   includeVowels?: boolean;
+  eliminationMode?: boolean;
+  useCustomLetters?: boolean;
+  customLetters?: string; // comma/space separated
   spinnerType?: SpinnerType;
   spinnerColor?: string;
   spinnerSecondaryColor?: string;
@@ -17,6 +20,9 @@ interface LetterGeneratorProps {
 const LetterGenerator: React.FC<LetterGeneratorProps> = ({ 
   alphabetType = 'uppercase',
   includeVowels = true,
+  eliminationMode = false,
+  useCustomLetters = false,
+  customLetters = '',
   spinnerType = 'circles',
   spinnerColor = '#FF3E9D',
   spinnerSecondaryColor = '#0EEDFF',
@@ -26,6 +32,7 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
 }) => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [letters, setLetters] = useState<string[]>([]);
+  const [availableLetters, setAvailableLetters] = useState<string[]>([]); // for elimination mode
   const [history, setHistory] = useState<string[]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
   // Initialize with zeros to avoid hydration mismatches
@@ -75,39 +82,47 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
     }
   }, []);
 
-  // Generate letters based on settings
+  // Build base letters from settings or custom input
   useEffect(() => {
-    const vowels = ['A', 'E', 'I', 'O', 'U'];
-    const alphabetArray: string[] = [];
-    
-    // Generate uppercase letters
-    if (alphabetType === 'uppercase' || alphabetType === 'both') {
-      for (let i = 65; i <= 90; i++) {
-        const letter = String.fromCharCode(i);
-        if (includeVowels || !vowels.includes(letter)) {
-          alphabetArray.push(letter);
+    const buildBaseLetters = (): string[] => {
+      if (useCustomLetters) {
+        const tokens = customLetters
+          .split(/[\s,]+/)
+          .map(s => s.trim())
+          .filter(Boolean);
+        const unique = Array.from(new Set(tokens));
+        return unique.length > 0 ? unique : ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+      }
+      const vowels = ['A', 'E', 'I', 'O', 'U'];
+      const alphabetArray: string[] = [];
+      if (alphabetType === 'uppercase' || alphabetType === 'both') {
+        for (let i = 65; i <= 90; i++) {
+          const letter = String.fromCharCode(i);
+          if (includeVowels || !vowels.includes(letter)) alphabetArray.push(letter);
         }
       }
-    }
-    
-    // Add lowercase letters if needed
-    if (alphabetType === 'lowercase' || alphabetType === 'both') {
-      for (let i = 97; i <= 122; i++) {
-        const letter = String.fromCharCode(i);
-        const upperLetter = letter.toUpperCase();
-        if (includeVowels || !vowels.includes(upperLetter)) {
-          alphabetArray.push(letter);
+      if (alphabetType === 'lowercase' || alphabetType === 'both') {
+        for (let i = 97; i <= 122; i++) {
+          const letter = String.fromCharCode(i);
+          const upperLetter = letter.toUpperCase();
+          if (includeVowels || !vowels.includes(upperLetter)) alphabetArray.push(letter);
         }
       }
-    }
-    
-    // Ensure we have at least one letter (failsafe)
-    if (alphabetArray.length === 0) {
-      setLetters(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+      return alphabetArray.length > 0
+        ? alphabetArray
+        : ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    };
+
+    const base = buildBaseLetters();
+    // When elimination is enabled, operate on availableLetters; otherwise just show base
+    if (eliminationMode) {
+      setAvailableLetters(base);
+      setLetters(base);
     } else {
-      setLetters(alphabetArray);
+      setLetters(base);
+      setAvailableLetters(base);
     }
-  }, [alphabetType, includeVowels]);
+  }, [alphabetType, includeVowels, eliminationMode, useCustomLetters, customLetters]);
 
   // Update window size for confetti
   useEffect(() => {
@@ -126,6 +141,18 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
 
   const handleSpin = () => {
     if (!isSpinning) {
+      // Ensure wheel data matches pool before spinning to keep mapping correct
+      if (eliminationMode && letters.length !== availableLetters.length) {
+        setLetters(availableLetters);
+        // Start spin on the next frame after the chart re-renders with new segments
+        if (typeof window !== 'undefined') {
+          requestAnimationFrame(() => {
+            playClick();
+            setIsSpinning(true);
+          });
+        }
+        return;
+      }
       playClick();
       setIsSpinning(true);
     }
@@ -159,6 +186,12 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
         setShowConfetti(false);
       }
     }, 3000);
+
+    // Elimination: remove selected letter from available pool only.
+    // Do NOT immediately change displayed `letters` to avoid reflow causing pointer mismatch.
+    if (eliminationMode) {
+      setAvailableLetters(prev => prev.filter(l => l !== letter));
+    }
   };
 
   // Toggle favorites
@@ -215,6 +248,30 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
       .slice(0, 5);
   };
 
+  const resetElimination = () => {
+    // Rebuild base from current props
+    const tokens = useCustomLetters
+      ? customLetters.split(/[\s,]+/).map(s => s.trim()).filter(Boolean)
+      : [];
+    let base: string[];
+    if (useCustomLetters) {
+      base = Array.from(new Set(tokens));
+      if (base.length === 0) base = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    } else {
+      const vowels = ['A','E','I','O','U'];
+      base = [];
+      if (alphabetType === 'uppercase' || alphabetType === 'both') {
+        for (let i=65;i<=90;i++){ const ch=String.fromCharCode(i); if (includeVowels || !vowels.includes(ch)) base.push(ch); }
+      }
+      if (alphabetType === 'lowercase' || alphabetType === 'both') {
+        for (let i=97;i<=122;i++){ const ch=String.fromCharCode(i); const up=ch.toUpperCase(); if (includeVowels || !vowels.includes(up)) base.push(ch); }
+      }
+      if (base.length===0) base = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    }
+    setAvailableLetters(base);
+    setLetters(base);
+  };
+
   return (
     <div className="center-content w-full">
       <motion.div 
@@ -236,6 +293,20 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
             </svg>
             {showStats ? 'Hide Stats' : 'Show Stats'}
           </motion.button>
+
+          {eliminationMode && (
+            <motion.button
+              onClick={resetElimination}
+              className="px-4 py-2 rounded-full bg-gradient-to-r from-[#EE74FF]/20 to-[#0EEDFF]/20 text-white border border-[#EE74FF]/30 flex items-center gap-2 hover:from-[#EE74FF]/30 hover:to-[#0EEDFF]/30 transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3 10a7 7 0 1112.452 4.391 1 1 0 11-1.63-1.157A5 5 0 105 10H3zm4 0a1 1 0 112 0v3a1 1 0 11-2 0v-3z" clipRule="evenodd" />
+              </svg>
+              Reset Pool
+            </motion.button>
+          )}
         </div>
         
         {/* Statistics panel */}
@@ -340,14 +411,15 @@ const LetterGenerator: React.FC<LetterGeneratorProps> = ({
             </motion.div>
           )}
         </AnimatePresence>
-        
+
         {/* Main wheel container with enhanced styling */}
         <div 
           ref={wheelContainerRef} 
-          className="wheel-container-wrapper relative w-full max-w-md mx-auto mb-8"
+          className="wheel-container-wrapper relative w-full max-w-[28rem] md:max-w-[34rem] lg:max-w-[40rem] mx-auto mb-10 transition-transform duration-300 hover:scale-[1.01]"
           style={{
             aspectRatio: '1/1', // Ensure square aspect ratio
           }}
+          onClick={() => { if (!isSpinning) handleSpin(); }}
         >
           {/* Decorative background elements */}
           <div className="absolute inset-0 -z-10">
