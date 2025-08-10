@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import LetterGenerator from '@/components/LetterGenerator';
 import Settings from '@/components/Settings';
-import Navigation from '@/components/Navigation';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import SpinnerCollection, { SpinnerType } from '@/components/SpinnerCollection';
 import ClientOnly from '@/components/ClientOnly';
@@ -166,7 +166,7 @@ export default function Home() {
                 <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-[#0EEDFF] to-[#EE74FF] text-transparent bg-clip-text">The Most Advanced Random Letter Generator Online</h2>
                 <div className="text-gray-300 space-y-4">
                   <p>
-                    Our premium Random Letter Generator is the most feature-rich tool available, offering advanced capabilities that surpass all competitors. With its stunning animated spinning wheel interface and professional-grade features, it's trusted by educators, game enthusiasts, and creative professionals worldwide.
+                    Our premium Random Letter Generator is the most feature-rich tool available, offering advanced capabilities that surpass all competitors. With its stunning animated spinning wheel interface and professional-grade features, it&apos;s trusted by educators, game enthusiasts, and creative professionals worldwide.
                   </p>
                   
                   <div className="bg-gradient-to-r from-[#FF3E9D]/10 to-[#0EEDFF]/10 p-4 rounded-lg border border-[#EE74FF]/20 mb-6">

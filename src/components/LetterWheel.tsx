@@ -46,15 +46,15 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
   const segmentAngle = 360 / letters.length;
   
   // Direct mapping based on Chart.js behavior
-  const rotationForIndex = (i: number) => {
+  const rotationForIndex = useCallback((i: number) => {
     // Chart.js starts at -90°, so to put segment i at top (0°):
     // We need to rotate by the amount that brings segment i's center to 0°
     const segmentCenterAngle = -90 + i * segmentAngle + segmentAngle / 2;
     const rotation = -segmentCenterAngle;
     return ((rotation % 360) + 360) % 360;
-  };
+  }, [letters.length]);
   
-  const indexForRotation = (currentRotation: number) => {
+  const indexForRotation = useCallback((currentRotation: number) => {
     const normalized = ((currentRotation % 360) + 360) % 360;
     
     // Simple approach: try different offsets to find what works
@@ -72,7 +72,7 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
     }
     
     return ((index % letters.length) + letters.length) % letters.length;
-  };
+  }, [letters.length]);
   
   // Define vibrant colors for the wheel segments inspired by the CodePen
   const backgroundColors = letters.map((_, index) => {
@@ -109,7 +109,7 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
       letter: letters[idx],
       rotation: normalizedRotation
     };
-  }, [letters, segmentAngle]);
+  }, [indexForRotation, letters, segmentAngle]);
 
   // Chart options with type assertion to avoid TypeScript errors
   const options = {
@@ -272,7 +272,7 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
         }
       };
     }
-  }, [spinning, playTick, playWin, onSpinComplete, getCurrentLetterAtPointer, letters.length, segmentAngle]);
+  }, [spinning, playTick, playWin, onSpinComplete, getCurrentLetterAtPointer, indexForRotation, letters, rotationForIndex, segmentAngle]);
 
   // Get the color for the selected letter
   const getSelectedLetterColor = () => {
@@ -413,4 +413,4 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
   );
 };
 
-export default LetterWheel; 
+export default LetterWheel;

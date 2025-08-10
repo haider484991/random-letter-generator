@@ -138,7 +138,7 @@ export default function ClassroomIntegration() {
                     <ul className="text-sm space-y-1">
                       <li>• Generate a letter and have students make the sound</li>
                       <li>• Students form the letter with their bodies</li>
-                      <li>• Quick "I Spy" games using the selected letter</li>
+                      <li>• Quick &quot;I Spy&quot; games using the selected letter</li>
                     </ul>
                   </div>
                   <div className="bg-gray-700/50 p-4 rounded border-l-4 border-[#FF3E9D]">

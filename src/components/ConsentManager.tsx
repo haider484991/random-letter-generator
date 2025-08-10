@@ -33,7 +33,7 @@ export default function ConsentManager() {
       {/* Google Consent Mode v2 */}
       <Script
         id="google-consent-mode"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
       >
         {`
           window.dataLayer = window.dataLayer || [];
@@ -88,4 +88,4 @@ export default function ConsentManager() {
       </Script>
     </>
   );
-} 
+}

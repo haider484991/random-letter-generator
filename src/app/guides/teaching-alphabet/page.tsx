@@ -132,7 +132,7 @@ export default function TeachingAlphabet() {
                       <p className="font-semibold mb-2">💡 Pro Tip: Elimination Mode</p>
                       <p className="text-sm">
                         Use elimination mode to ensure every letter gets equal practice time. Once a letter is selected, 
-                        it's removed from the pool until all letters have been practiced, then the cycle resets.
+                        it&apos;s removed from the pool until all letters have been practiced, then the cycle resets.
                       </p>
                     </div>
                   </div>

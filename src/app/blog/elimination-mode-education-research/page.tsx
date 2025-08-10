@@ -113,8 +113,8 @@ export default function EliminationModeResearch() {
                         Meta-analysis of 47 studies on alphabet instruction methods
                       </p>
                       <p className="text-gray-300 text-sm">
-                        "Systematic, elimination-based practice showed 23% greater improvement in letter recognition 
-                        compared to pure random selection methods."
+                        &quot;Systematic, elimination-based practice showed 23% greater improvement in letter recognition 
+                        compared to pure random selection methods.&quot;
                       </p>
                     </div>
                     
@@ -124,8 +124,8 @@ export default function EliminationModeResearch() {
                         6-month study with 240 kindergarten students across 12 classrooms
                       </p>
                       <p className="text-gray-300 text-sm">
-                        "Students using elimination-mode letter practice demonstrated significantly higher engagement 
-                        scores and more balanced skill development across all alphabet knowledge areas."
+                        &quot;Students using elimination-mode letter practice demonstrated significantly higher engagement 
+                        scores and more balanced skill development across all alphabet knowledge areas.&quot;
                       </p>
                     </div>
                   </div>

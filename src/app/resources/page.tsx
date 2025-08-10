@@ -288,7 +288,7 @@ export default function ResourcesPage() {
               <div className="mt-6 p-4 bg-gray-800/50 rounded border border-gray-600">
                 <p className="text-sm text-gray-400 text-center">
                   <strong>Attribution:</strong> When sharing or modifying these resources, please include: 
-                  "Original resource from Random Letter Generator (randomlettergenerator.com)"
+                  &quot;Original resource from Random Letter Generator (randomlettergenerator.com)&quot;
                 </p>
               </div>
             </div>
