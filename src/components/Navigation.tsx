@@ -13,6 +13,15 @@ const Navigation = () => {
     { name: 'Home', href: '/', icon: '🏠' },
     { name: 'Letter Generator', href: '/#generator', icon: '🎯' },
     { 
+      name: 'Pictionary', 
+      href: '/pictionary', 
+      icon: '🎨',
+      dropdown: [
+        { name: 'Word Generator', href: '/pictionary', icon: '🎲' },
+        { name: 'Complete Guide', href: '/pictionary/guide', icon: '📖' },
+      ]
+    },
+    { 
       name: 'Teaching Guides', 
       href: '/guides', 
       icon: '📚',
