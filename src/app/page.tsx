@@ -3,14 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import LetterGenerator from '@/components/LetterGenerator';
-import Settings from '@/components/Settings';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import SpinnerCollection, { SpinnerType } from '@/components/SpinnerCollection';
 import ClientOnly from '@/components/ClientOnly';
 import FloatingLetters from '@/components/FloatingLetters';
 import { useTheme } from '@/components/ThemeProvider';
-import { Sparkles, Zap, Target, Shuffle } from 'lucide-react';
 
 export default function Home() {
   const { theme } = useTheme();

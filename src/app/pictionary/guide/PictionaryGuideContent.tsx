@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronDown, ChevronUp, BookOpen, Users, Brain, Target, Clock, Trophy, Share2, ArrowRight, Home, Gamepad2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, BookOpen, Users, Brain, Target, Clock, Share2, ArrowRight, Home, Gamepad2 } from 'lucide-react';
 
 interface TableOfContentsItem {
   id: string;
@@ -210,8 +210,8 @@ export default function PictionaryGuideContent() {
                 {/* Introduction */}
                 <div className="mb-12">
                   <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    Pictionary is more than just a game—it's a powerful tool for education, communication, and social connection. 
-                    Whether you're a teacher looking to engage students, a parent seeking quality family time, or friends wanting 
+                    Pictionary is more than just a game—it&apos;s a powerful tool for education, communication, and social connection. 
+                    Whether you&apos;re a teacher looking to engage students, a parent seeking quality family time, or friends wanting 
                     entertainment, Pictionary offers benefits that extend far beyond the game itself.
                   </p>
                   
@@ -447,7 +447,7 @@ export default function PictionaryGuideContent() {
                         <li>• Use simple, clear lines and shapes</li>
                         <li>• Think about breaking complex words into parts</li>
                         <li>• Use context clues and related concepts</li>
-                        <li>• Don't worry about artistic quality - clarity matters most</li>
+                        <li>• Don&apos;t worry about artistic quality - clarity matters most</li>
                       </ul>
                       
                       <h4 className="text-lg font-semibold text-blue-800 mt-6 mb-3">Drawing Strategies:</h4>
@@ -464,8 +464,8 @@ export default function PictionaryGuideContent() {
                       <ul className="text-green-700 space-y-2">
                         <li>• Call out everything you see, even if it seems obvious</li>
                         <li>• Think about categories and related words</li>
-                        <li>• Pay attention to the drawer's reactions</li>
-                        <li>• Build on teammates' guesses</li>
+                        <li>• Pay attention to the drawer&apos;s reactions</li>
+                        <li>• Build on teammates&apos; guesses</li>
                         <li>• Consider multiple meanings of visual elements</li>
                       </ul>
                       
@@ -621,7 +621,7 @@ export default function PictionaryGuideContent() {
                     
                     <CollapsibleSection title="What happens if someone accidentally says the word?" defaultOpen={false}>
                       <p className="text-gray-700">
-                        The round typically ends with no points awarded. Some groups allow a "do-over" with a new word.
+                        The round typically ends with no points awarded. Some groups allow a &quot;do-over&quot; with a new word.
                       </p>
                     </CollapsibleSection>
                     
@@ -651,7 +651,7 @@ export default function PictionaryGuideContent() {
                   <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Playing?</h2>
                     <p className="text-gray-700 mb-6">
-                      Pictionary is more than just entertainment—it's a powerful tool for building relationships, 
+                      Pictionary is more than just entertainment—it&apos;s a powerful tool for building relationships, 
                       developing skills, and creating lasting memories. The combination of creativity, communication, 
                       and collaboration makes it an ideal activity for all ages and occasions.
                     </p>

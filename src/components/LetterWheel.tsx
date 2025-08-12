@@ -46,13 +46,13 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
   const segmentAngle = 360 / letters.length;
   
   // Direct mapping based on Chart.js behavior
-  const rotationForIndex = useCallback((i: number) => {
+  const rotationForIndex = useCallback((index: number) => {
     // Chart.js starts at -90°, so to put segment i at top (0°):
     // We need to rotate by the amount that brings segment i's center to 0°
-    const segmentCenterAngle = -90 + i * segmentAngle + segmentAngle / 2;
+    const segmentCenterAngle = -90 + index * segmentAngle + segmentAngle / 2;
     const rotation = -segmentCenterAngle;
     return ((rotation % 360) + 360) % 360;
-  }, [letters.length]);
+  }, [segmentAngle]);
   
   const indexForRotation = useCallback((currentRotation: number) => {
     const normalized = ((currentRotation % 360) + 360) % 360;
@@ -72,7 +72,7 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
     }
     
     return ((index % letters.length) + letters.length) % letters.length;
-  }, [letters.length]);
+  }, [letters, segmentAngle]);
   
   // Define vibrant colors for the wheel segments inspired by the CodePen
   const backgroundColors = letters.map((_, index) => {
@@ -109,7 +109,7 @@ const LetterWheel: React.FC<LetterWheelProps> = ({
       letter: letters[idx],
       rotation: normalizedRotation
     };
-  }, [indexForRotation, letters, segmentAngle]);
+  }, [indexForRotation, letters]);
 
   // Chart options with type assertion to avoid TypeScript errors
   const options = {

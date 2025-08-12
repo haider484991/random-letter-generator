@@ -88,20 +88,18 @@ export default function PictionaryGenerator() {
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [theme, setTheme] = useState<'dark' | 'vibrant'>('vibrant');
   
-  // Timer display state
-  const [timerDisplay, setTimerDisplay] = useState<'digital' | 'progress'>('digital');
-  const [showTimerSettings, setShowTimerSettings] = useState<boolean>(false);
+  // Timer display state (removed unused variables)
   
   // Hint system state
   const [hintsUsed, setHintsUsed] = useState<number>(0);
   const [maxHints, setMaxHints] = useState<number>(3);
   const [revealedLetters, setRevealedLetters] = useState<boolean[]>([]);
   const [categoryHint, setCategoryHint] = useState<string>('');
-  const [showHintSettings, setShowHintSettings] = useState<boolean>(false);
+  // Hint settings state (removed unused variable)
   
   // Game mode state
   const [gameMode, setGameMode] = useState<GameMode>('classic');
-  const [showGameModeSelector, setShowGameModeSelector] = useState<boolean>(false);
+  // Game mode selector state (removed unused variable)
   const [chainWord, setChainWord] = useState<string>('');
   const [roundNumber, setRoundNumber] = useState<number>(1);
   
@@ -110,14 +108,14 @@ export default function PictionaryGenerator() {
     { id: '1', name: 'Team 1', score: 0, colorIndex: 0 },
     { id: '2', name: 'Team 2', score: 0, colorIndex: 1 }
   ]);
-  const [showTeamManager, setShowTeamManager] = useState<boolean>(false);
+  // Team manager state (removed unused variable)
   const [newTeamName, setNewTeamName] = useState<string>('');
   const [activeTeam, setActiveTeam] = useState<string>('1');
   
   // Custom words state
   const [customWords, setCustomWords] = useState<string[]>([]);
   const [newCustomWord, setNewCustomWord] = useState<string>('');
-  const [showCustomWordManager, setShowCustomWordManager] = useState<boolean>(false);
+  // Custom word manager state (removed unused variable)
   const [useCustomWordsOnly, setUseCustomWordsOnly] = useState<boolean>(false);
   
   // UI state
@@ -300,15 +298,7 @@ export default function PictionaryGenerator() {
     setTeams(teams.map(team => ({ ...team, score: 0 })));
   };
   
-  const changeTeamColor = (id: string) => {
-    setTeams(teams.map(team => {
-      if (team.id === id) {
-        const newColorIndex = (team.colorIndex + 1) % TEAM_COLORS.length;
-        return { ...team, colorIndex: newColorIndex };
-      }
-      return team;
-    }));
-  };
+  // Team color change function (removed unused function)
   
   // Toggle theme function
   const toggleTheme = () => {
@@ -780,7 +770,7 @@ export default function PictionaryGenerator() {
             <div className="flex justify-between items-center mb-3">
               <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Teams</h3>
               <button
-                onClick={() => setShowTeamManager(true)}
+                onClick={() => console.log('Team management feature')}
                 className={`text-xs px-3 py-1 rounded-lg ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
               >
                 Manage
